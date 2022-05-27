@@ -1,3 +1,3 @@
-INSERT INTO anime (id, titre, statut) VALUES(1, 'animé 1', 'FINIT');
-INSERT INTO anime (id, titre, statut) VALUES(2, 'animé 2', 'EN_COUR');
-INSERT INTO anime (id, titre, statut) VALUES(3, 'animé 3', 'A_VOIR');
+INSERT INTO anime (id, date_debut, date_fin, titre, statut, note, type, nb_episode_vue, nb_episode_total, wikipedia, nautiljon, commentaire) VALUES(1, '2000-01-01','2000-01-02', 'animé 1', 'FINIT', 'TROIS', 'SERIE' ,1 ,12 , 'lien 1','lien 2', 'commentaire');
+INSERT INTO anime (id, date_debut, date_fin, titre, statut, note, type, nb_episode_vue, nb_episode_total, wikipedia, nautiljon, commentaire) VALUES(2, '2000-01-01','2000-01-02', 'animé 1', 'FINIT', 'TROIS', 'SERIE' ,1 ,12 , 'lien 1','lien 2', 'commentaire');
+INSERT INTO anime (id, date_debut, date_fin, titre, statut, note, type, nb_episode_vue, nb_episode_total, wikipedia, nautiljon, commentaire) VALUES(3, '2000-01-01','2000-01-02', 'animé 1', 'FINIT', 'TROIS', 'SERIE' ,1 ,12 , 'lien 1','lien 2', 'commentaire');
