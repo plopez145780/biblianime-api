@@ -2,6 +2,7 @@ package plopez.biblianime.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Anime {
@@ -13,8 +14,8 @@ public class Anime {
 
     private LocalDate dateFin;
 
-    @Column(nullable = false)
-    private String titre;
+    @OneToMany(mappedBy = "id_anime")
+    private List<Titre> titres;
 
     @Column(nullable = false, columnDefinition = "varchar(10) default 'A_VOIR'")
     @Enumerated(EnumType.STRING)
@@ -64,12 +65,12 @@ public class Anime {
         this.dateFin = dateFin;
     }
 
-    public String getTitre() {
-        return titre;
+    public List<Titre> getTitres() {
+        return titres;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setTitres(List<Titre> titres) {
+        this.titres = titres;
     }
 
     public Statut getStatut() {
