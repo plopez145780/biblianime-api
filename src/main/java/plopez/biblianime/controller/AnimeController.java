@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import plopez.biblianime.entity.Anime;
+import plopez.biblianime.entity.Statut;
 import plopez.biblianime.service.AnimeService;
 
 import javax.validation.Valid;
@@ -30,7 +31,19 @@ public class AnimeController {
     @Operation(summary = "Obtenir la liste des animés", description = "Obtenir la liste des animés")
     @GetMapping("/")
     public List<Anime> fetchAnimeList() {
-        return animeService.fetchAnimeList();
+        return animeService.findAll();
+    }
+
+    @Operation(summary = "Obtenir la liste des animés par titre", description = "Obtenir la liste des animés par titre")
+    @GetMapping("/findByTitre")
+    public List<Anime> findByTitre(@RequestParam("titre") String titre) {
+        return animeService.findByTitre(titre);
+    }
+
+    @Operation(summary = "Obtenir la liste des animés par statut", description = "Obtenir la liste des animés par statut")
+    @GetMapping("/findByStatut")
+    public List<Anime> findByStatut(@RequestParam("statut") Statut statut) {
+        return animeService.findByStatut(statut);
     }
 
     @Operation(summary = "Mettre à jour un animé", description = "Mettre à jour un animé")

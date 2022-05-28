@@ -3,8 +3,10 @@ package plopez.biblianime.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plopez.biblianime.entity.Anime;
+import plopez.biblianime.entity.Statut;
 import plopez.biblianime.repository.AnimeRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,8 +21,18 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public List<Anime> fetchAnimeList() {
+    public List<Anime> findAll() {
         return (List<Anime>) animeRepository.findAll();
+    }
+
+    @Override
+    public List<Anime> findByTitre(String titre) {
+        return animeRepository.findByTitresNomContains(titre);
+    }
+
+    @Override
+    public List<Anime> findByStatut(Statut statut) {
+        return animeRepository.findByStatutIs(statut);
     }
 
     @Override
