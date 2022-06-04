@@ -23,11 +23,11 @@ public class Anime {
 
     @Column(nullable = false, columnDefinition = "varchar(10) default 'ZERO'")
     @Enumerated(EnumType.STRING)
-    private NoteAnime note;
+    private Note note;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TypeAnime type;
+    private Type type;
 
     @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer nbEpisodeVue;
@@ -81,19 +81,19 @@ public class Anime {
         this.statut = statut;
     }
 
-    public NoteAnime getNote() {
+    public Note getNote() {
         return note;
     }
 
-    public void setNote(NoteAnime note) {
+    public void setNote(Note note) {
         this.note = note;
     }
 
-    public TypeAnime getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(TypeAnime type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
