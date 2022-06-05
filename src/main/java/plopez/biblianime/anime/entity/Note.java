@@ -1,4 +1,4 @@
-package plopez.biblianime.entity;
+package plopez.biblianime.anime.entity;
 
 /**
  * Note d'animé

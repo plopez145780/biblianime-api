@@ -1,4 +1,4 @@
-package plopez.biblianime.entity;
+package plopez.biblianime.anime.entity;
 
 /**
  * Type d'animé
@@ -8,5 +8,5 @@ public enum Type {
     FILM,
     OAV,
     SPECIAL,
-    ONA;
+    ONA
 }

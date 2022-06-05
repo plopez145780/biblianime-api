@@ -1,12 +1,12 @@
-package plopez.biblianime.controller;
+package plopez.biblianime.anime.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import plopez.biblianime.entity.Anime;
-import plopez.biblianime.entity.Statut;
-import plopez.biblianime.service.AnimeService;
+import plopez.biblianime.anime.entity.Anime;
+import plopez.biblianime.anime.entity.Statut;
+import plopez.biblianime.anime.service.AnimeService;
 
 import javax.validation.Valid;
 import java.util.List;

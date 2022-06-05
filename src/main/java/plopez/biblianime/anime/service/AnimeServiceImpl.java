@@ -1,10 +1,10 @@
-package plopez.biblianime.service;
+package plopez.biblianime.anime.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.entity.Anime;
-import plopez.biblianime.entity.Statut;
-import plopez.biblianime.repository.AnimeRepository;
+import plopez.biblianime.anime.entity.Anime;
+import plopez.biblianime.anime.entity.Statut;
+import plopez.biblianime.anime.repository.AnimeRepository;
 
 import java.time.LocalDate;
 import java.util.List;

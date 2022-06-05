@@ -1,7 +1,7 @@
-package plopez.biblianime.service;
+package plopez.biblianime.anime.service;
 
-import plopez.biblianime.entity.Anime;
-import plopez.biblianime.entity.Statut;
+import plopez.biblianime.anime.entity.Anime;
+import plopez.biblianime.anime.entity.Statut;
 
 import java.util.List;
 

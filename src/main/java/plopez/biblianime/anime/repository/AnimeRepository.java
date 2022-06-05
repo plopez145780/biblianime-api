@@ -1,9 +1,9 @@
-package plopez.biblianime.repository;
+package plopez.biblianime.anime.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import plopez.biblianime.entity.Anime;
-import plopez.biblianime.entity.Statut;
+import plopez.biblianime.anime.entity.Anime;
+import plopez.biblianime.anime.entity.Statut;
 
 import java.util.List;
 
