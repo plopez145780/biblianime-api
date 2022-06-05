@@ -51,6 +51,12 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+        <!-- Import CSV -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.6</version>
+        </dependency>
     </dependencies>
 
     <build>
