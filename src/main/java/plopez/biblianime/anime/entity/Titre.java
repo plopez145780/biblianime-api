@@ -22,5 +22,5 @@ public class Titre {
 
     private Boolean principal;
 
-    private Integer id_anime;
+    private Long id_anime;
 }
