@@ -1,4 +1,4 @@
-package plopez.biblianime.importcsv.entity;
+package plopez.biblianime.importcsv.bean;
 
 import com.opencsv.bean.*;
 import lombok.Getter;
