@@ -1,13 +1,21 @@
 package plopez.biblianime.anime.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
+import plopez.biblianime.anime.controller.AnimeController;
 import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.Statut;
 import plopez.biblianime.anime.repository.AnimeRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class AnimeServiceImpl implements AnimeService {
@@ -21,18 +29,20 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public List<Anime> findAll() {
-        return (List<Anime>) animeRepository.findAll();
+    public CollectionModel<Anime> findAll() {
+        Iterable<Anime> animes = animeRepository.findAll();
+        Link link = linkTo(methodOn(AnimeController.class).fetchAnimeList()).withSelfRel();
+        return CollectionModel.of(animes, link);
     }
 
     @Override
-    public List<Anime> findByTitre(String titre) {
-        return animeRepository.findByTitresNomContains(titre);
-    }
-
-    @Override
-    public List<Anime> findByStatut(Statut statut) {
-        return animeRepository.findByStatutIs(statut);
+    public EntityModel<Anime> findOne(Long animeId) {
+        Optional<Anime> anime = animeRepository.findById(animeId);
+        if (anime.isPresent()) {
+            Link link = linkTo(methodOn(AnimeController.class).fetchAnime(animeId)).withSelfRel();
+            return EntityModel.of(anime.get(), link);
+        }
+        return null;
     }
 
     @Override
@@ -64,4 +74,15 @@ public class AnimeServiceImpl implements AnimeService {
     public void deleteAnimeById(Long animeId) {
         animeRepository.deleteById(animeId);
     }
+
+    @Override
+    public List<Anime> findByTitre(String titre) {
+        return animeRepository.findByTitresNomContains(titre);
+    }
+
+    @Override
+    public List<Anime> findByStatut(Statut statut) {
+        return animeRepository.findByStatutIs(statut);
+    }
+
 }
