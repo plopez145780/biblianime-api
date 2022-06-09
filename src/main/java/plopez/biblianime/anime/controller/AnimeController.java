@@ -3,8 +3,6 @@ package plopez.biblianime.anime.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.Statut;
@@ -34,13 +32,13 @@ public class AnimeController {
     // READ
     @Operation(summary = "Obtenir la liste des animés", description = "Obtenir la liste des animés")
     @GetMapping
-    public CollectionModel<Anime> fetchAnimeList() {
+    public List<Anime> fetchAnimeList() {
         return animeService.findAll();
     }
 
     @Operation(summary = "Obtenir un animé", description = "Obtenir un animé")
     @GetMapping("/{id}")
-    public EntityModel<Anime> fetchAnime(@PathVariable("id") Long animeId) {
+    public Anime fetchAnime(@PathVariable("id") Long animeId) {
         return animeService.findOne(animeId);
     }
 

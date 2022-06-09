@@ -1,21 +1,13 @@
 package plopez.biblianime.anime.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.anime.controller.AnimeController;
 import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.Statut;
 import plopez.biblianime.anime.repository.AnimeRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class AnimeServiceImpl implements AnimeService {
@@ -29,20 +21,13 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public CollectionModel<Anime> findAll() {
-        Iterable<Anime> animes = animeRepository.findAll();
-        Link link = linkTo(methodOn(AnimeController.class).fetchAnimeList()).withSelfRel();
-        return CollectionModel.of(animes, link);
+    public List<Anime> findAll() {
+        return (List<Anime>) animeRepository.findAll();
     }
 
     @Override
-    public EntityModel<Anime> findOne(Long animeId) {
-        Optional<Anime> anime = animeRepository.findById(animeId);
-        if (anime.isPresent()) {
-            Link link = linkTo(methodOn(AnimeController.class).fetchAnime(animeId)).withSelfRel();
-            return EntityModel.of(anime.get(), link);
-        }
-        return null;
+    public Anime findOne(Long animeId) {
+        return animeRepository.findById(animeId).orElse(null);
     }
 
     @Override
