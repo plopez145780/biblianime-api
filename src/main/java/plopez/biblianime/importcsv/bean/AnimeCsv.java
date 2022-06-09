@@ -7,9 +7,9 @@ import lombok.ToString;
 import plopez.biblianime.anime.entity.Note;
 import plopez.biblianime.anime.entity.Statut;
 import plopez.biblianime.anime.entity.Type;
-import plopez.biblianime.importcsv.mapping.NoteAnimeConverter;
-import plopez.biblianime.importcsv.mapping.StatutAnimeConverter;
-import plopez.biblianime.importcsv.mapping.TypeAnimeConverter;
+import plopez.biblianime.importcsv.converter.NoteAnimeConverter;
+import plopez.biblianime.importcsv.converter.StatutAnimeConverter;
+import plopez.biblianime.importcsv.converter.TypeAnimeConverter;
 
 import java.time.LocalDate;
 import java.util.List;
