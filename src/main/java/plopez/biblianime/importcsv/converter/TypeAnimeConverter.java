@@ -1,4 +1,4 @@
-package plopez.biblianime.importcsv.mapping;
+package plopez.biblianime.importcsv.converter;
 
 import com.opencsv.bean.AbstractBeanField;
 import plopez.biblianime.anime.entity.Type;

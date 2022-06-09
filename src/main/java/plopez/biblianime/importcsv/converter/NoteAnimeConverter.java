@@ -1,4 +1,4 @@
-package plopez.biblianime.importcsv.mapping;
+package plopez.biblianime.importcsv.converter;
 
 import com.opencsv.bean.AbstractBeanField;
 import plopez.biblianime.anime.entity.Note;
@@ -15,7 +15,7 @@ public class NoteAnimeConverter extends AbstractBeanField {
             case "3" -> Note.TROIS;
             case "2" -> Note.DEUX;
             case "1" -> Note.UN;
-            default -> Note.ZERO;
+            default -> Note.ZERO; // Pour les 0 et les cas sans valeur
         };
 
     }
