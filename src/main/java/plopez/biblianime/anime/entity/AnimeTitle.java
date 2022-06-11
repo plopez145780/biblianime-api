@@ -11,16 +11,17 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Titre {
+public class AnimeTitle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nom;
+    private String name;
 
     private Boolean principal;
 
-    private Long id_anime;
+    @Column(name = "id_anime")
+    private Long animeId;
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,24 +20,29 @@ public class Anime {
 
     private LocalDate dateFin;
 
-    @OneToMany(mappedBy = "id_anime")
-    private List<Titre> titres;
+    @OneToMany(mappedBy = "animeId")
+    private List<AnimeTitle> titles;
 
+    @NotNull
     @Column(nullable = false, columnDefinition = "varchar(10) default 'A_VOIR'")
     @Enumerated(EnumType.STRING)
-    private Statut statut;
+    private AnimeStatut statut;
 
+    @NotNull
     @Column(nullable = false, columnDefinition = "varchar(10) default 'ZERO'")
     @Enumerated(EnumType.STRING)
-    private Note note;
+    private AnimeNote note;
 
+    @NotNull
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private AnimeType type;
 
+    @NotNull
     @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer nbEpisodeVue;
 
+    @NotNull
     @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer nbEpisodeTotal;
 

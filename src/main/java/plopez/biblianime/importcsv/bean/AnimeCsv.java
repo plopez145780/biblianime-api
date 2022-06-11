@@ -4,9 +4,9 @@ import com.opencsv.bean.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import plopez.biblianime.anime.entity.Note;
-import plopez.biblianime.anime.entity.Statut;
-import plopez.biblianime.anime.entity.Type;
+import plopez.biblianime.anime.entity.AnimeNote;
+import plopez.biblianime.anime.entity.AnimeStatut;
+import plopez.biblianime.anime.entity.AnimeType;
 import plopez.biblianime.importcsv.converter.NoteAnimeConverter;
 import plopez.biblianime.importcsv.converter.StatutAnimeConverter;
 import plopez.biblianime.importcsv.converter.TypeAnimeConverter;
@@ -34,13 +34,13 @@ public class AnimeCsv {
     List<String> titres;
 
     @CsvCustomBindByName(column = "Id_statut", converter = StatutAnimeConverter.class)
-    Statut statut;
+    AnimeStatut statut;
 
     @CsvCustomBindByName(column = "Id_note", converter = NoteAnimeConverter.class)
-    Note note;
+    AnimeNote note;
 
     @CsvCustomBindByName(column = "Id_type", converter = TypeAnimeConverter.class)
-    Type type;
+    AnimeType type;
 
     @CsvBindByName(column = "Nb_episodes_vue")
     @CsvNumber("#")

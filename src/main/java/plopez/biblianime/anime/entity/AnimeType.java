@@ -3,7 +3,7 @@ package plopez.biblianime.anime.entity;
 /**
  * Type d'animé
  */
-public enum Type {
+public enum AnimeType {
     SERIE,
     FILM,
     OAV,

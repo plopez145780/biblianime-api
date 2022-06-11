@@ -3,7 +3,7 @@ package plopez.biblianime.anime.entity;
 /**
  * Statut d'animé
  */
-public enum Statut {
+public enum AnimeStatut {
     A_VOIR,
     EN_COUR,
     EN_ATTENTE,

@@ -3,7 +3,8 @@ package plopez.biblianime.anime.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plopez.biblianime.anime.entity.Anime;
-import plopez.biblianime.anime.entity.Statut;
+import plopez.biblianime.anime.entity.AnimeStatut;
+import plopez.biblianime.anime.entity.AnimeTitle;
 import plopez.biblianime.anime.repository.AnimeRepository;
 
 import java.time.LocalDate;
@@ -15,8 +16,23 @@ public class AnimeServiceImpl implements AnimeService {
     @Autowired
     private AnimeRepository animeRepository;
 
+    @Autowired
+    private TitleAnimeService titleAnimeService;
+
     @Override
-    public Anime saveAnime(Anime anime) {
+    public Anime create(Anime anime) {
+        Anime animeBdd = animeRepository.save(anime);
+        Long id = animeBdd.getId();
+
+        List<AnimeTitle> animeTitleAsauvegarder = anime.getTitles();
+        animeTitleAsauvegarder.forEach(titre -> titre.setAnimeId(id));
+
+        titleAnimeService.save(animeTitleAsauvegarder);
+        return animeBdd;
+    }
+
+    @Override
+    public Anime save(Anime anime) {
         return animeRepository.save(anime);
     }
 
@@ -26,23 +42,23 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public Anime findOne(Long animeId) {
+    public Anime find(Long animeId) {
         return animeRepository.findById(animeId).orElse(null);
     }
 
     @Override
-    public Anime updateAnime(Anime anime, Long animeId) {
+    public Anime update(Anime anime, Long animeId) {
 
         Anime animeEntity = animeRepository.findById(animeId).orElse(new Anime());
 
-        if (animeEntity.getStatut() != Statut.EN_COUR && anime.getStatut() == Statut.EN_COUR) {
+        if (animeEntity.getStatut() != AnimeStatut.EN_COUR && anime.getStatut() == AnimeStatut.EN_COUR) {
             animeEntity.setDateDebut(LocalDate.now());
         }
 
-        if (animeEntity.getStatut() != Statut.FINIT && anime.getStatut() == Statut.FINIT) {
+        if (animeEntity.getStatut() != AnimeStatut.FINIT && anime.getStatut() == AnimeStatut.FINIT) {
             animeEntity.setDateFin(LocalDate.now());
         }
-        animeEntity.setTitres(anime.getTitres());
+        animeEntity.setTitles(anime.getTitles());
         animeEntity.setStatut(anime.getStatut());
         animeEntity.setNote(anime.getNote());
         animeEntity.setType(anime.getType());
@@ -56,17 +72,17 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public void deleteAnimeById(Long animeId) {
+    public void delete(Long animeId) {
         animeRepository.deleteById(animeId);
     }
 
     @Override
-    public List<Anime> findByTitre(String titre) {
-        return animeRepository.findByTitresNomContains(titre);
+    public List<Anime> findByTitle(String titre) {
+        return animeRepository.findByTitlesNameContains(titre);
     }
 
     @Override
-    public List<Anime> findByStatut(Statut statut) {
+    public List<Anime> findByStatut(AnimeStatut statut) {
         return animeRepository.findByStatutIs(statut);
     }
 

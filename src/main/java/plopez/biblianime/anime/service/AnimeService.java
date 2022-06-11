@@ -1,22 +1,25 @@
 package plopez.biblianime.anime.service;
 
 import plopez.biblianime.anime.entity.Anime;
-import plopez.biblianime.anime.entity.Statut;
+import plopez.biblianime.anime.entity.AnimeStatut;
 
 import java.util.List;
 
 public interface AnimeService {
-    Anime saveAnime(Anime anime);
+
+    Anime create(Anime anime);
+
+    Anime save(Anime anime);
 
     List<Anime> findAll();
 
-    Anime updateAnime(Anime anime, Long animeId);
+    Anime update(Anime anime, Long animeId);
 
-    void deleteAnimeById(Long animeId);
+    void delete(Long animeId);
 
-    List<Anime> findByTitre(String titre);
+    List<Anime> findByTitle(String titre);
 
-    List<Anime> findByStatut(Statut statut);
+    List<Anime> findByStatut(AnimeStatut statut);
 
-    Anime findOne(Long animeId);
+    Anime find(Long animeId);
 }

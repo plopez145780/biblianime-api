@@ -3,7 +3,7 @@ package plopez.biblianime.anime.entity;
 /**
  * Note d'animé
  */
-public enum Note {
+public enum AnimeNote {
     ZERO,
     UN,
     DEUX,

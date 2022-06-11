@@ -4,9 +4,9 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plopez.biblianime.anime.entity.Anime;
-import plopez.biblianime.anime.entity.Titre;
+import plopez.biblianime.anime.entity.AnimeTitle;
 import plopez.biblianime.anime.service.AnimeService;
-import plopez.biblianime.anime.service.TitreService;
+import plopez.biblianime.anime.service.TitleAnimeService;
 import plopez.biblianime.importcsv.bean.AnimeCsv;
 
 import java.io.FileReader;
@@ -21,7 +21,7 @@ public class ImportCsvServiceImpl implements ImportCsvService {
     @Autowired
     AnimeService animeService;
     @Autowired
-    TitreService titreService;
+    TitleAnimeService titleAnimeService;
 
     public void importation() throws IOException {
         String fileName = "C:\\DATA\\Projets\\biblianime\\src\\main\\resources\\TblAnime.csv";
@@ -38,21 +38,21 @@ public class ImportCsvServiceImpl implements ImportCsvService {
                 data -> {
 
                     // Crée et sauvegarde les titres
-                    List<Titre> titres = data.getTitres().stream().map(dataTitre -> {
-                        Titre titre = new Titre();
-                        titre.setId_anime(data.getId());
-                        titre.setNom(dataTitre);
+                    List<AnimeTitle> animeTitles = data.getTitres().stream().map(dataTitre -> {
+                        AnimeTitle animeTitle = new AnimeTitle();
+                        animeTitle.setAnimeId(data.getId());
+                        animeTitle.setName(dataTitre);
 
-                        titreService.saveTitre(titre);
+                        titleAnimeService.save(animeTitle);
 
-                        return titre;
+                        return animeTitle;
                     }).collect(Collectors.toList());
                     // Crée et sauvegarde l'animé
                     Anime anime = new Anime();
                     anime.setId(data.getId());
                     anime.setDateDebut(data.getAjouteLe());
                     anime.setDateFin(data.getModifieLe());
-                    anime.setTitres(titres);
+                    anime.setTitles(animeTitles);
                     anime.setStatut(data.getStatut());
                     anime.setNote(data.getNote());
                     anime.setType(data.getType());
@@ -62,7 +62,7 @@ public class ImportCsvServiceImpl implements ImportCsvService {
                     anime.setWikipedia(data.getWikipedia());
                     anime.setCommentaire(data.getCommentaire());
 
-                    animeService.saveAnime(anime);
+                    animeService.save(anime);
                 });
     }
 }
