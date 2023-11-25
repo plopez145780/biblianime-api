@@ -1,9 +1,8 @@
 package plopez.biblianime.anime.entity;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 /**
  * Titre d'animé

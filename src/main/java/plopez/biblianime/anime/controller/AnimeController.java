@@ -2,19 +2,21 @@ package plopez.biblianime.anime.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.AnimeStatut;
 import plopez.biblianime.anime.service.AnimeService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Controlleur pour les animés
  */
 @Tag(name = "animé", description = "API des animés")
+@Validated
 @RestController
 public class AnimeController {
 
