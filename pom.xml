@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>plopez</groupId>
@@ -57,7 +57,11 @@
             <artifactId>opencsv</artifactId>
             <version>5.9</version>
         </dependency>
-        <!-- Test -->
+        <!-- TEST -->
+        <!-- Spring Boot Starter Test » 3.2.1 contient :
+        * org.junit.jupiter » junit-jupiter	5.10.1
+        * org.mockito » mockito-core 5.8.0
+        * org.mockito » mockito-junit-jupiter 5.8.0 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
