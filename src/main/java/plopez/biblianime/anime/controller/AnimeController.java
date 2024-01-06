@@ -13,7 +13,7 @@ import plopez.biblianime.anime.service.AnimeService;
 import java.util.List;
 
 /**
- * Controlleur pour les animés
+ * Controller pour les animés
  */
 @Tag(name = "animé", description = "API des animés")
 @Validated
