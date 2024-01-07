@@ -11,8 +11,8 @@ BDD H2 :
 SWAGGER
 
 - https://www.baeldung.com/spring-rest-openapi-documentation
-- https://springdoc.org/#swagger-ui-properties
-- http://158.101.191.70:8081/swagger-ui/4.11.1/index.html
+- https://springdoc.org/
+- https://github.com/swagger-api/swagger-ui
 
 SPRING
 
