@@ -2,6 +2,7 @@ package plopez.biblianime.importcsv.service;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.AnimeTitle;
@@ -23,8 +24,13 @@ public class ImportCsvServiceImpl implements ImportCsvService {
     @Autowired
     TitleAnimeService titleAnimeService;
 
+    @Value( "${app.importcsv.source}" )
+    String fileName;
+
     public void importation() throws IOException {
-        String fileName = "C:\\DATA\\Projets\\biblianime\\src\\main\\resources\\TblAnime.csv";
+
+        System.out.println("fileName:"+fileName);
+
         Charset charset = Charset.forName("windows-1252");
         List<AnimeCsv> datas = new CsvToBeanBuilder(new FileReader(fileName, charset))
                 .withSeparator(';')
