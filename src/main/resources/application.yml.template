@@ -1,7 +1,7 @@
 spring:
   # Database : Connexion H2
   datasource:
-    url: jdbc:h2:~/biblianimedb
+    url: jdbc:h2:~/data/biblianimedb
     username: bibliuser
     password: biblipassword
     driverClassName: org.h2.Driver
