@@ -1,12 +1,16 @@
 spring:
   # Database : Connexion H2
   datasource:
-    url: jdbc:h2:~/biblianimedb
+    url: jdbc:h2:./data/biblianimedb
     username: bibliuser
     password: biblipassword
     driverClassName: org.h2.Driver
   # Console d'administration H2 : http://localhost:8080/h2-console
-  h2.console.enabled: true
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
   # Java persistence API : Hibernate
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
