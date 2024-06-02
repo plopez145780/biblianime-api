@@ -20,4 +20,9 @@
 ## Build
 
 - [ ] Maven pom.xml plugin
-- [ ] Docker docker-file
+- [x] Docker docker-file
+
+# Documentation
+
+- [ ] Paragraphe README
+- [ ] README badge : https://shields.io/
