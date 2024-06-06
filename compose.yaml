@@ -7,51 +7,69 @@
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
+name: biblianime
 services:
   api:
     build:
       context: .
+    networks:
+      - biblireseau
     ports:
       - 8080:8080
+    # `depends_on` indique à Docker Compose de démarrer la base de données avant votre application.
     depends_on:
       db:
         condition: service_healthy
   db:
     image: postgres:16.3-alpine3.20
     restart: always
+    hostname: postgres
     user: postgres
     secrets:
       - db-password
     volumes:
       - db-data:/var/lib/postgresql/data
+      #- ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      - POSTGRES_DB=example
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_DB=biblianimedb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      #- POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    networks:
+      - biblireseau
     expose:
-      - 5432
+      - 5432:5432
     healthcheck:
       test: [ "CMD", "pg_isready" ]
       interval: 10s
       timeout: 5s
       retries: 5
-  volumes:
-    db-data:
-  secrets:
-    db-password:
-      file: db/password.txt
 
-# The commented out section below is an example of how to define a PostgreSQL
-# database that your application can use. `depends_on` tells Docker Compose to
-# start the database before your application. The `db-data` volume persists the
-# database data between container restarts. The `db-password` secret is used
-# to set the database password. You must create `db/password.txt` and add
-# a password of your choosing to it before running `docker-compose up`.
+  pgadmin:
+    image: dpage/pgadmin4:8.7
+    restart: always
+    hostname: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=plopez@email.fr
+      - PGADMIN_DEFAULT_PASSWORD=dpagepass
+      #- PGADMIN_DEFAULT_PASSWORD_FILE=file
+    networks:
+      - biblireseau
+    expose:
+      - 80:80
+      - 443:443
 
-# La section commentée ci-dessous est un exemple de définition d'une base de données PostgreSQL que votre application peut utiliser.
-# `depends_on` indique à Docker Compose de démarrer la base de données avant votre application.
 # Le volume `db-data` persiste les données de la base entre les redémarrages du conteneur.
+volumes:
+  db-data:
+
 # Le secret `db-password` est utilisé pour définir le mot de passe de la base de données.
 # Vous devez créer le fichier `db/password.txt` et y ajouter un mot de passe de votre choix avant d'utiliser la base de données.
 # un mot de passe de votre choix avant de lancer `docker-compose up`.
+secrets:
+  db-password:
+    file: db/password.txt
 
-
+networks:
+  biblireseau:
+    driver: bridge

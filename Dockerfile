@@ -63,16 +63,16 @@ FROM eclipse-temurin:21-jre-jammy AS final
 
 # Créer un utilisateur non privilégié sous lequel l'application s'exécutera.
 # https://docs.docker.com/go/dockerfile-user-best-practices/
-#ARG UID=10001
-#RUN adduser \
-#    --disabled-password \
-#    --gecos "" \
-#    --home "/nonexistent" \
-#--shell "/sbin/nologin" \
-#    --no-create-home \
-#    --uid "${UID}" \
-#    appuser
-#USER appuser
+ARG UID=10001
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    appuser
+USER appuser
 
 # Copier l'exécutable à partir de l'étape « package ».
 COPY --from=extract build/target/extracted/dependencies/ ./
@@ -80,8 +80,6 @@ COPY --from=extract build/target/extracted/spring-boot-loader/ ./
 COPY --from=extract build/target/extracted/snapshot-dependencies/ ./
 COPY --from=extract build/target/extracted/application/ ./
 
-EXPOSE 80
-
-VOLUME /data
+EXPOSE 8080
 
 ENTRYPOINT [ "java", "org.springframework.boot.loader.launch.JarLauncher" ]
