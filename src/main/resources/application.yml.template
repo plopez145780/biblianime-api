@@ -1,19 +1,16 @@
+database: postgres
 spring:
-  # Database : Connexion H2
+  # Database : Postgresql
   datasource:
-    url: jdbc:h2:./data/biblianimedb
-    username: bibliuser
-    password: biblipassword
-    driverClassName: org.h2.Driver
-  # Console d'administration H2 : http://localhost:8080/h2-console
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost/biblianimedb}
+    username: ${POSTGRES_USER:biblianimeuser}
+    password: ${POSTGRES_PASS:password}
+  # SQL is written to be idempotent so this is safe
+  sql:
+    init:
+      mode: always
   # Java persistence API : Hibernate
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop  # create, create-drop, validate, update
@@ -22,6 +19,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
 app:
   importcsv:
     source: #Chemin du fichier csv a importer

@@ -12,19 +12,17 @@ services:
   api:
     build:
       context: .
-    networks:
-      - biblireseau
     ports:
       - 8080:8080
     # `depends_on` indique à Docker Compose de démarrer la base de données avant votre application.
     depends_on:
       db:
         condition: service_healthy
+    environment:
+      - POSTGRES_URL=jdbc:postgresql://db:5432/biblianimedb
   db:
     image: postgres:16.3-alpine3.20
     restart: always
-    hostname: postgres
-    user: postgres
     secrets:
       - db-password
     volumes:
@@ -32,15 +30,13 @@ services:
       #- ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - POSTGRES_DB=biblianimedb
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      #- POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-    networks:
-      - biblireseau
+      - POSTGRES_USER=biblianimeuser
+      #- POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
     expose:
       - 5432:5432
     healthcheck:
-      test: [ "CMD", "pg_isready" ]
+      test: [ "CMD", "pg_isready", "-U", "biblianimeuser" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -53,8 +49,6 @@ services:
       - PGADMIN_DEFAULT_EMAIL=plopez@email.fr
       - PGADMIN_DEFAULT_PASSWORD=dpagepass
       #- PGADMIN_DEFAULT_PASSWORD_FILE=file
-    networks:
-      - biblireseau
     expose:
       - 80:80
       - 443:443
@@ -69,7 +63,3 @@ volumes:
 secrets:
   db-password:
     file: db/password.txt
-
-networks:
-  biblireseau:
-    driver: bridge
