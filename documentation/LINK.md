@@ -65,6 +65,8 @@ Configuration avec application.yml :
 ## Docker compose
 
 - https://docs.docker.com/guides/
+- https://docs.docker.com/compose/compose-file/
+- https://github.com/docker/awesome-compose
 
 ## Spring + docker
 

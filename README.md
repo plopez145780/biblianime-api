@@ -3,7 +3,16 @@
 Bibliothèque pour gérer la liste des animés : leurs avancements de sortie, 
 ainsi que celui de visionnage.
 
-# Exécuter l'application
+# Exécuter l'application (production)
+
+Registre Docker Hub : https://hub.docker.com/r/plopez832/biblianime
+
+```cmd
+docker pull plopez832/biblianime
+docker run --name biblianime -p 8080:8080 plopez832/biblianime
+```
+
+# Exécuter l'application (développement)
 
 Dans la racine du projet, exécutez la commande suivante dans un terminal.
 
@@ -19,7 +28,7 @@ Ouvrez un navigateur et visualisez l'application à l'adresse http://localhost:8
 Dans le terminal, appuyez sur `ctrl+c` pour arrêter l'application.
 
 
-# Exécuter l'application en arrière-plan
+## Exécuter l'application en arrière-plan
 
 Vous pouvez exécuter l'application détachée du terminal en ajoutant l'option -d. 
 Dans la racine du projet, exécutez la commande suivante dans un terminal.
@@ -34,9 +43,7 @@ Dans le terminal, exécutez la commande suivante pour arrêter l'application.
 docker compose down
 ```
 
-
-
-## Export data
+# Export data
 
 - Dans access, ouvrir le formulaire "Liste d'animés"
 - Dans le menu, "Données externes" > Exporter > Excel.
@@ -55,6 +62,8 @@ docker compose down
 
 ### A partir du dockerfile
 
+créez l'image
+
 ```cmd
 docker build -t NAME:TAG .
 ```
@@ -64,16 +73,6 @@ docker build -t NAME:TAG .
 ```cmd
 docker compose up --build
 ```
-
-Your application will be available at http://localhost:8080.
-
-### Deploying your application to the cloud
-
-First, build your image, e.g.: `docker build -t myapp .`.
-If your cloud uses a different CPU architecture than your development
-machine (e.g., you are on a Mac M1 and your cloud provider is amd64),
-you'll want to build the image for that platform, e.g.:
-`docker build --platform=linux/amd64 -t myapp .`.
 
 # Contributeur
 

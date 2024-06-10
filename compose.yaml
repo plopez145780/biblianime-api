@@ -1,14 +1,6 @@
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Docker Compose reference guide at
-# https://docs.docker.com/go/compose-spec-reference/
-
-# Here the instructions define your application as a service called "server".
-# This service is built from the Dockerfile in the current directory.
-# You can add other services your application may depend on here, such as a
-# database or a cache. For examples, see the Awesome Compose repository:
-# https://github.com/docker/awesome-compose
 name: biblianime
 services:
+  ### API ###
   api:
     build:
       context: .
@@ -20,6 +12,7 @@ services:
         condition: service_healthy
     environment:
       - POSTGRES_URL=jdbc:postgresql://db:5432/biblianimedb
+  ### POSTGRESQL ###
   db:
     image: postgres:16.3-alpine3.20
     restart: always
@@ -40,7 +33,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+  ### PGADMIN ###
   pgadmin:
     image: dpage/pgadmin4:8.7
     restart: always
