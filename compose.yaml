@@ -1,58 +1,67 @@
 name: biblianime
 services:
+
   ### API ###
   api:
     build:
       context: .
     ports:
       - 8080:8080
+    networks:
+      - network
     # `depends_on` indique à Docker Compose de démarrer la base de données avant votre application.
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      - POSTGRES_URL=jdbc:postgresql://db:5432/biblianimedb
+    env_file:
+      - .env
+
   ### POSTGRESQL ###
   db:
     image: postgres:16.3-alpine3.20
     restart: always
+    user: postgres
     secrets:
       - db-password
+    networks:
+      - network
     volumes:
       - db-data:/var/lib/postgresql/data
-      #- ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    environment:
-      - POSTGRES_DB=biblianimedb
-      - POSTGRES_USER=biblianimeuser
-      #- POSTGRES_PASSWORD=password
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
     expose:
-      - 5432:5432
+      - 5432
+    env_file:
+      - .env
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "biblianimeuser" ]
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d $${POSTGRES_DB}'"]
       interval: 10s
       timeout: 5s
       retries: 5
+
   ### PGADMIN ###
   pgadmin:
-    image: dpage/pgadmin4:8.7
+    image: dpage/pgadmin4:8
     restart: always
-    hostname: pgadmin
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=plopez@email.fr
-      - PGADMIN_DEFAULT_PASSWORD=dpagepass
-      #- PGADMIN_DEFAULT_PASSWORD_FILE=file
-    expose:
-      - 80:80
-      - 443:443
-
-# Le volume `db-data` persiste les données de la base entre les redémarrages du conteneur.
+    secrets:
+      - pgadmin-password
+    networks:
+      - network
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - 8082:80
+      - 8083:443
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
 volumes:
   db-data:
-
-# Le secret `db-password` est utilisé pour définir le mot de passe de la base de données.
-# Vous devez créer le fichier `db/password.txt` et y ajouter un mot de passe de votre choix avant d'utiliser la base de données.
-# un mot de passe de votre choix avant de lancer `docker-compose up`.
+  pgadmin-data:
+networks:
+  network:
 secrets:
   db-password:
-    file: db/password.txt
+    file: config/db-password.txt
+  pgadmin-password:
+    file: config/pgadmin-password.txt

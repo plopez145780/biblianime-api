@@ -1,8 +1,3 @@
-Configuration avec application.yml :
-
-- https://www.baeldung.com/spring-boot-yaml-vs-properties
-- https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
-
 # BDD 
 
 ## H2
@@ -13,8 +8,9 @@ Configuration avec application.yml :
 ## Postgres
 
 - https://hub.docker.com/_/postgres
+- https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/
 
-### Pgadmin
+## Pgadmin
 
 - https://hub.docker.com/r/dpage/pgadmin4
 - https://www.pgadmin.org/
@@ -26,10 +22,20 @@ Configuration avec application.yml :
 - https://springdoc.org/
 - https://github.com/swagger-api/swagger-ui
 
-# SPRING
+# Spring
 
 - https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 - https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html
+
+## Properties
+
+- https://www.baeldung.com/spring-boot-yaml-vs-properties
+- https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
+- https://docs.spring.io/spring-boot/reference/data/sql.html
+- 
+## Spring + Postgres
+
+- https://github.com/docker/awesome-compose/tree/master/spring-postgres
 
 # IMPORT DATA CSV
 
@@ -68,7 +74,15 @@ Configuration avec application.yml :
 - https://docs.docker.com/compose/compose-file/
 - https://github.com/docker/awesome-compose
 
+- https://docs.docker.com/compose/environment-variables/variable-interpolation/
+- https://docs.docker.com/compose/use-secrets/
+
 ## Spring + docker
 
 - https://spring.io/guides/topicals/spring-boot-docker
 - https://spring.io/guides/gs/spring-boot-docker
+
+Docker compose healthchecks postgres
+- https://www.postgresql.org/docs/current/app-pg-isready.html
+- https://stackoverflow.com/questions/65115627/safe-ways-to-specify-postgres-parameters-for-healthchecks-in-docker-compose
+- https://stackoverflow.com/questions/54988792/docker-compose-healthcheck-use-environment-variables#54989793
