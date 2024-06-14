@@ -1,26 +1,13 @@
-database: postgres
 spring:
-  # Database : Postgresql
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost/biblianimedb}
-    username: ${POSTGRES_USER:biblianimeuser}
-    password: ${POSTGRES_PASS:password}
-  # SQL is written to be idempotent so this is safe
-  sql:
-    init:
-      mode: always
-  # Java persistence API : Hibernate
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: create-drop  # create, create-drop, validate, update
-    show-sql: true
-    defer-datasource-initialization: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-
+      ddl-auto: create  # create, create-drop, validate, update
+      show-sql: true
 app:
   importcsv:
     source: #Chemin du fichier csv a importer
