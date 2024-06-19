@@ -3,8 +3,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 /src/main/resources/application.yml
-config/**
-!config/*.template
+db/**
+!db/*.template
+pgadmin/**
+!pgadmin/*.template
 .env
 
 ### STS ###

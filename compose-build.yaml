@@ -1,5 +1,21 @@
 name: biblianime
 services:
+
+  ### API ###
+  api:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    networks:
+      - network
+    # `depends_on` indique à Docker Compose de démarrer la base de données avant votre application.
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+
   ### POSTGRESQL ###
   db:
     image: postgres:16.3-alpine3.20
@@ -11,8 +27,8 @@ services:
       - network
     volumes:
       - db-data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
+    expose:
+      - 5432
     env_file:
       - .env
     healthcheck:
