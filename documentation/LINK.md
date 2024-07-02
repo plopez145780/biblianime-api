@@ -67,6 +67,7 @@
 
 - https://docs.docker.com/language/java/
 - https://docs.docker.com/reference/dockerfile/
+- https://docs.docker.com/language/java/containerize/
 
 ## Docker compose
 
