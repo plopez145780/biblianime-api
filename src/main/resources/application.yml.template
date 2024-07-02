@@ -11,3 +11,7 @@ spring:
 app:
   importcsv:
     source: #Chemin du fichier csv a importer
+myanimelist:
+  base-url: #https://url.com/
+  key: #X_RAPIDAPI_KEY
+  host: #X_RAPIDAPI_HOST
