@@ -7,9 +7,9 @@ import lombok.ToString;
 import plopez.biblianime.anime.entity.AnimeNote;
 import plopez.biblianime.anime.entity.AnimeStatut;
 import plopez.biblianime.anime.entity.AnimeType;
-import plopez.biblianime.importcsv.converter.NoteAnimeConverter;
-import plopez.biblianime.importcsv.converter.StatutAnimeConverter;
-import plopez.biblianime.importcsv.converter.TypeAnimeConverter;
+import plopez.biblianime.importcsv.converter.AnimeNoteConverter;
+import plopez.biblianime.importcsv.converter.AnimeStatutConverter;
+import plopez.biblianime.importcsv.converter.AnimeTypeConverter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,13 +33,13 @@ public class AnimeCsv {
     @CsvBindAndSplitByName(column = "Titre", splitOn = "/", elementType = String.class)
     List<String> titres;
 
-    @CsvCustomBindByName(column = "Id_statut", converter = StatutAnimeConverter.class)
+    @CsvCustomBindByName(column = "Id_statut", converter = AnimeStatutConverter.class)
     AnimeStatut statut;
 
-    @CsvCustomBindByName(column = "Id_note", converter = NoteAnimeConverter.class)
+    @CsvCustomBindByName(column = "Id_note", converter = AnimeNoteConverter.class)
     AnimeNote note;
 
-    @CsvCustomBindByName(column = "Id_type", converter = TypeAnimeConverter.class)
+    @CsvCustomBindByName(column = "Id_type", converter = AnimeTypeConverter.class)
     AnimeType type;
 
     @CsvBindByName(column = "Nb_episodes_vue")

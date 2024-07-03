@@ -6,7 +6,14 @@ import plopez.biblianime.anime.entity.AnimeNote;
 /**
  * Convertisseur de la note d'animé de nombre en énumération
  */
-public class NoteAnimeConverter extends AbstractBeanField {
+public class AnimeNoteConverter extends AbstractBeanField {
+
+    /**
+     * Convertit une note sous forme de chaîne de caractères en une note d'animé sous forme d'énumération
+     *
+     * @param s la chaîne de caractères représentant la note d'animé
+     * @return la note d'animé correspondante sous forme d'énumération
+     */
     @Override
     protected AnimeNote convert(String s) {
         return switch (s) {

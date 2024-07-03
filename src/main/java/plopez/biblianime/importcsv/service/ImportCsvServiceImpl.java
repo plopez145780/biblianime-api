@@ -9,6 +9,8 @@ import plopez.biblianime.anime.entity.AnimeTitle;
 import plopez.biblianime.anime.service.AnimeService;
 import plopez.biblianime.anime.service.TitleAnimeService;
 import plopez.biblianime.importcsv.bean.AnimeCsv;
+import plopez.biblianime.importcsv.converter.AnimeConverter;
+import plopez.biblianime.importcsv.converter.AnimeTitleConverter;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,7 +31,7 @@ public class ImportCsvServiceImpl implements ImportCsvService {
 
     public void importation() throws IOException {
 
-        System.out.println("fileName:"+fileName);
+        System.out.println("fileName:" + fileName);
 
         Charset charset = Charset.forName("windows-1252");
         List<AnimeCsv> datas = new CsvToBeanBuilder(new FileReader(fileName, charset))
@@ -38,36 +40,20 @@ public class ImportCsvServiceImpl implements ImportCsvService {
                 .build()
                 .parse();
 
-        datas.forEach(animeCsv -> System.out.println(animeCsv.toString()));
-
         datas.forEach(
                 data -> {
+                    System.out.println(data.toString());
 
                     // Crée et sauvegarde les titres
                     List<AnimeTitle> animeTitles = data.getTitres().stream().map(dataTitre -> {
-                        AnimeTitle animeTitle = new AnimeTitle();
-                        animeTitle.setAnimeId(data.getId());
-                        animeTitle.setName(dataTitre);
-
+                        AnimeTitle animeTitle = AnimeTitleConverter.convert(dataTitre, data.getId());
                         titleAnimeService.save(animeTitle);
 
                         return animeTitle;
                     }).collect(Collectors.toList());
-                    // Crée et sauvegarde l'animé
-                    Anime anime = new Anime();
-                    anime.setId(data.getId());
-                    anime.setDateDebut(data.getAjouteLe());
-                    anime.setDateFin(data.getModifieLe());
-                    anime.setTitles(animeTitles);
-                    anime.setStatut(data.getStatut());
-                    anime.setNote(data.getNote());
-                    anime.setType(data.getType());
-                    anime.setNbEpisodeVue(data.getNbEpisodesVue());
-                    anime.setNbEpisodeTotal(data.getNbEpisodesTotal());
-                    anime.setNautiljon(data.getNautiljon());
-                    anime.setWikipedia(data.getWikipedia());
-                    anime.setCommentaire(data.getCommentaire());
 
+                    // Crée et sauvegarde l'animé
+                    Anime anime = AnimeConverter.convert(data, animeTitles);
                     animeService.save(anime);
                 });
     }
