@@ -21,7 +21,7 @@ public class AnimeTitleController {
         return titleAnimeService.save(animeTitle);
     }
 
-    @Operation(summary = "Ajouter plusieur nouveaux titres à un animé", description = "Ajouter plusieur nouveaux titres à un animé")
+    @Operation(summary = "Ajouter plusieurs nouveaux titres à un animé", description = "Ajouter plusieur nouveaux titres à un animé")
     @PostMapping("/animes/{animeId}/titles/list")
     public List<AnimeTitle> saveTitleList(@RequestBody List<AnimeTitle> animeTitleList) {
         return titleAnimeService.save(animeTitleList);

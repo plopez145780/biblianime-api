@@ -6,8 +6,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import plopez.biblianime.anime.dto.AnimeShortDTO;
 import plopez.biblianime.anime.entity.Anime;
+import plopez.biblianime.anime.entity.AnimeInformation;
 import plopez.biblianime.anime.entity.AnimeStatut;
+import plopez.biblianime.anime.entity.Season;
+import plopez.biblianime.anime.mapper.AnimeMapper;
 import plopez.biblianime.anime.service.AnimeService;
 
 import java.util.List;
@@ -26,7 +30,7 @@ public class AnimeController {
     // CREATE
     @Operation(summary = "Ajouter un nouvel animé", description = "Ajouter un nouvel animé")
     @PostMapping("/animes")
-    public Anime save(@Valid @RequestBody Anime anime) {
+    public Anime add(@Valid @RequestBody Anime anime) {
         return animeService.save(anime);
     }
 
@@ -70,4 +74,24 @@ public class AnimeController {
     public List<Anime> findByStatut(@RequestParam("statut") AnimeStatut statut) {
         return animeService.findByStatut(statut);
     }
+
+
+    @Operation(summary = "Obtenir la liste des animés de la saison", description = "Obtenir la liste des animés par statut")
+    @GetMapping("/animes/saisons")
+    public List<AnimeShortDTO> getAnimesBySeason(@RequestParam("year") int year,
+                                                 @RequestParam("season") Season season) {
+        List<AnimeInformation> animesBySeason = animeService.getAnimesBySeason(year, season);
+        return animesBySeason.stream()
+                .map(AnimeMapper::toAnimeShortDTO)
+                .toList();
+    }
+
+    @Operation(summary = "Save l'animé", description = "Obtenir la liste des animés par statut")
+    @PostMapping("/animes/saisons")
+    public List<Anime> saveAnimesBySeason(@RequestParam("year") int year,
+                                          @RequestParam("season") Season season) {
+        return null;
+    }
+
+
 }

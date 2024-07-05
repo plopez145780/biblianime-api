@@ -2,11 +2,11 @@ package plopez.biblianime.anime.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.anime.entity.Anime;
-import plopez.biblianime.anime.entity.AnimeStatut;
-import plopez.biblianime.anime.entity.AnimeTitle;
+import plopez.biblianime.anime.entity.*;
 import plopez.biblianime.anime.repository.AnimeRepository;
+import plopez.biblianime.myanimelist.anime.provider.MyAnimeListAnimeProvider;
 
+import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,6 +18,9 @@ public class AnimeServiceImpl implements AnimeService {
 
     @Autowired
     private TitleAnimeService titleAnimeService;
+
+    @Autowired
+    private MyAnimeListAnimeProvider myAnimeListAnimeProvider;
 
     @Override
     public Anime create(Anime anime) {
@@ -84,6 +87,21 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     public List<Anime> findByStatut(AnimeStatut statut) {
         return animeRepository.findByStatutIs(statut);
+    }
+
+
+    @Override
+    public List<AnimeInformation> getAnimesBySeason(int year, Season season) {
+        HttpResponse<String> seasonalAnimes;
+        try {
+            seasonalAnimes = myAnimeListAnimeProvider.getSeasonalAnimes(year, season);
+            seasonalAnimes.body();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return List.of();
     }
 
 }
