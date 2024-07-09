@@ -1,16 +1,17 @@
 package plopez.biblianime.myanimelist.anime.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.anime.entity.AnimeInformation;
 import plopez.biblianime.anime.entity.Season;
+import plopez.biblianime.myanimelist.anime.dto.AnimeSeasonDTO;
 import plopez.biblianime.myanimelist.anime.provider.MyAnimeListAnimeProvider;
 
-import java.io.IOException;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MyAnimeListAnimeServiceImpl implements MyAnimeListAnimeService {
@@ -19,39 +20,33 @@ public class MyAnimeListAnimeServiceImpl implements MyAnimeListAnimeService {
     private MyAnimeListAnimeProvider myAnimeListAnimeProvider;
 
     /**
-     * Récupère une liste d'informations sur les animés saisonniers en fonction de l'année et de la saison donnée.
+     * Récupère les animes saisonniers de MyAnimeList en fonction de l'année et de la saison spécifiées.
      *
-     * @param year   l'année de la saison
-     * @param season la saison de l'anime
-     * @return une liste d'objets AnimeInformation représentant les animés saisonniers
+     * @param  year    l'année pour laquelle les animes saisonniers sont demandés
+     * @param  season  la saison pour laquelle les animes saisonniers sont demandés
+     * @return une map contenant une liste d'objets AnimeSeasonDTO catégorisés par type
      */
     @Override
-    public List<AnimeInformation> getSeasonalAnimes(int year, Season season) {
+    public Map<String, List<AnimeSeasonDTO>> getSeasonalAnimes(int year, Season season) {
 
-        List<AnimeInformation> animes;
+        Map<String, List<AnimeSeasonDTO>> animesByType;
 
         try {
+            // Récupère les animes saisonniers en JSON
             HttpResponse<String> seasonalAnimes = myAnimeListAnimeProvider.getSeasonalAnimes(year, season);
             String body = seasonalAnimes.body();
 
+            // Deserialization
             ObjectMapper objectMapper = new ObjectMapper();
-            AnimeInformation[] todos = objectMapper.readValue(body, AnimeInformation[].class);
-            animes = List.of(todos);
+            TypeReference<HashMap<String, List<AnimeSeasonDTO>>> typeRef = new TypeReference<>() {
+            };
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            animes = new ArrayList<>();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            animes = new ArrayList<>();
+            animesByType = objectMapper.readValue(body, typeRef);
 
         } catch (Exception e) {
             e.printStackTrace();
-            animes = new ArrayList<>();
+            animesByType = new HashMap<>();
         }
-
-
-        return animes;
+        return animesByType;
     }
 }
