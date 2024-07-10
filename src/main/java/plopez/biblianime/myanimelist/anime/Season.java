@@ -1,4 +1,4 @@
-package plopez.biblianime.anime.entity;
+package plopez.biblianime.myanimelist.anime;
 
 public enum Season {
     SPRING,

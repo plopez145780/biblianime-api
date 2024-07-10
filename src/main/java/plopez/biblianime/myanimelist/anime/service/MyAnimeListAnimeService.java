@@ -1,6 +1,6 @@
 package plopez.biblianime.myanimelist.anime.service;
 
-import plopez.biblianime.anime.entity.Season;
+import plopez.biblianime.myanimelist.anime.Season;
 import plopez.biblianime.myanimelist.anime.dto.AnimeSeasonDTO;
 
 import java.util.List;

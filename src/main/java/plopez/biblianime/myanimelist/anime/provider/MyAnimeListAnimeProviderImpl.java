@@ -2,7 +2,8 @@ package plopez.biblianime.myanimelist.anime.provider;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.anime.entity.Season;
+import plopez.biblianime.myanimelist.anime.AnimeTopCategory;
+import plopez.biblianime.myanimelist.anime.Season;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,13 +14,13 @@ import java.net.http.HttpResponse;
 @Service
 public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
 
-    @Value( "${myanimelist.base-url}" )
+    @Value("${api.myanimelist.base-url}")
     private String BASE_URL;
 
-    @Value( "${myanimelist.key}" )
+    @Value("${api.myanimelist.key}")
     private String X_RAPIDAPI_KEY;
 
-    @Value( "${myanimelist.host}" )
+    @Value("${api.myanimelist.host}")
     private String X_RAPIDAPI_HOST;
 
 
@@ -29,81 +30,108 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
     /**
      * Récupère les détails d'un anime à partir de l'API MyAnimeList en utilisant l'ID de l'anime fourni.
      *
-     * @param  animeId  l'ID de l'anime à récupérer
-     * @return          un objet HttpResponse contenant le corps de la réponse de l'API
+     * @param animeId l'ID de l'anime à récupérer
+     * @return un objet HttpResponse contenant le corps de la réponse de l'API
      * @throws IOException          si une erreur d'E/S se produit pendant la requête
      * @throws InterruptedException si le thread est interrompu pendant l'attente de la réponse
      */
-    public HttpResponse<String> getAnime (int animeId) throws IOException, InterruptedException {
-
+    public HttpResponse<String> getAnime(int animeId) throws IOException, InterruptedException {
         return request(BASE_URL + "anime/" + animeId);
     }
 
+    /**
+     * Recherche des animes en utilisant l'API MyAnimeList en fonction de la requête fournie.
+     * Exemple d'URL : https://myanimelist.p.rapidapi.com/v2/anime/search?q=one%20piece&n=50&score=8&genre=1
+     *
+     * @param query la requête de recherche pour les animes
+     * @param n     le nombre de résultats de recherche (minimum : 1, par défaut : 1, maximum : 50)
+     * @param score le score minimum de l'anime (minimum : 0, par défaut : 0, maximum : 10)
+     * @param genre l'ID du genre à rechercher (peut être obtenu en utilisant le point de terminaison Anime Genres)
+     * @return un HttpResponse contenant le corps de la réponse de l'API
+     * @throws IOException          si une erreur d'E/S se produit pendant la requête
+     * @throws InterruptedException si le thread est interrompu pendant l'attente de la réponse
+     */
+    public HttpResponse<String> searchAnimes(String query, Integer n, Integer score, Integer genre) throws IOException, InterruptedException {
 
-    public HttpResponse<String> searchAnimes () throws IOException, InterruptedException {
+        StringBuilder url = new StringBuilder(BASE_URL + "v2/anime/search");
 
-        // Requête de recherche utilisée par la recherche sur https://myanimelist.net/.
-        String query = "";
-        //Nombre de résultats : Minimum : 1 Défaut : 1 Maximum : 50
-        int n = 50;
-        //Score minimum de l'anime :: Minimum : 0 / Tous les animes : 0 /  Par défaut : 0 / Maximum : 10
-        int score = 8;
-        //ID du genre que vous souhaitez rechercher. Peut être obtenu en utilisant le point de terminaison Anime Genres.
-        int genre = 1;
+        url.append("?q=").append(query);
 
-        // exemple : https://myanimelist.p.rapidapi.com/v2/anime/search?q=one%20piece&n=50&score=8&genre=1
-        String url = BASE_URL + "v2/anime/search" +
-                "?q=" + query +
-                "&n=" + n +
-                "&score=" + score +
-                "&genre=" + genre;
+        if (n == null || n < 1) n = 10;
+        if (n > 50) n = 50;
+        url.append("&n=").append(n);
 
-        return request(url);
+        if (score != null && score >= 0 && score <= 10) url.append("&score=").append(score);
+
+        if (genre != null) url.append("&genre=").append(genre);
+
+        return request(url.toString());
     }
 
     /**
      * Récupère les meilleurs animés de MyAnimeList API en fonction de la catégorie spécifiée.
-    *
-    * @param  category la catégorie d'anime à récupérer
+     * Exemple URL : https://myanimelist.p.rapidapi.com/anime/top/all
+     *
+     * @param category la catégorie d'anime à récupérer
      * @return la réponse HTTP contenant les meilleurs animés de la catégorie spécifiée
-    * @throws IOException          si une erreur I/O se produit lors de la requête API
-    * @throws InterruptedException si le fil est interrompu pendant la réception de la réponse API
-    */
-    public HttpResponse<String> getTopAnimes (String category) throws IOException, InterruptedException {
-
-        // exemple : https://myanimelist.p.rapidapi.com/anime/top/all
-        return request(BASE_URL + "anime/top/" + category);
+     * @throws IOException          si une erreur d'E/S se produit lors de la requête API
+     * @throws InterruptedException si le thread est interrompu en attendant la réponse de l'API
+     */
+    public HttpResponse<String> getTopAnimes(AnimeTopCategory category) throws IOException, InterruptedException {
+        return request(BASE_URL + "anime/top/" + category.getValue());
     }
 
+    /**
+     * Récupère les recommandations d'animes de l'API MyAnimeList en fonction de la page spécifiée.
+     * Exemple URL : https://myanimelist.p.rapidapi.com/v2/anime/recommendations?p=1
+     *
+     * @param page le numéro de la page des résultats (par défaut 1)
+     * @return la réponse HTTP contenant les animes recommandés pour la page spécifiée
+     * @throws IOException          si une erreur d'E/S se produit lors de la requête API
+     * @throws InterruptedException si le thread est interrompu en attendant la réponse de l'API
+     */
     public HttpResponse<String> getAnimeRecommendations(Integer page) throws IOException, InterruptedException {
-
-        // Page de résultats souhaitée. 1 par défaut.
-        if (page == null) {
-            page = 1;
-        }
-
-        // exemple : https://myanimelist.p.rapidapi.com/v2/anime/recommendations?p=1
+        if (page == null || page < 1) page = 1;
         return request(BASE_URL + "v2/anime/recommendations" + "?p=" + page);
     }
 
+    /**
+     * Récupère les reviews d'animes de l'API MyAnimeList en fonction de la page spécifiée.
+     * Exemple URL : https://myanimelist.p.rapidapi.com/v2/anime/reviews?p=1
+     *
+     * @param page le numéro de la page des résultats (par défaut 1)
+     * @return la réponse HTTP contenant les critiques d'animes pour la page spécifiée
+     * @throws IOException          si une erreur d'E/S se produit lors de la requête API
+     * @throws InterruptedException si le thread est interrompu en attendant la réponse de l'API
+     */
     public HttpResponse<String> getAnimeReviews(Integer page) throws IOException, InterruptedException {
-
-        // Page de résultats souhaitée. 1 par défaut.
-        if (page == null) {
-            page = 1;
-        }
-
-        // exemple : https://myanimelist.p.rapidapi.com/v2/anime/reviews?p=1
+        if (page == null || page < 1) page = 1;
         return request(BASE_URL + "v2/anime/reviews" + "?p=" + page);
     }
 
+    /**
+     * Récupère les animes saisonniers pour une année et une saison spécifiques.
+     * Exemple URL : https://myanimelist.p.rapidapi.com/v2/anime/seasonal?year=2023&season=winter
+     *
+     * @param year   l'année pour laquelle les animes saisonniers sont demandés
+     * @param season la saison pour laquelle les animes saisonniers sont demandés
+     * @return la réponse HTTP contenant les animes saisonniers
+     * @throws IOException          si une erreur d'entrée/sortie se produit lors de la requête HTTP
+     * @throws InterruptedException si l'exécution est interrompue lors de l'attente de la réponse HTTP
+     */
     public HttpResponse<String> getSeasonalAnimes(int year, Season season) throws IOException, InterruptedException {
-        //exemple : https://myanimelist.p.rapidapi.com/v2/anime/seasonal?year=2023&season=winter
         return request(BASE_URL + "v2/anime/seasonal" + "?year=" + year + "&season=" + season);
     }
 
-    public HttpResponse<String> getAnimeGenres () throws IOException, InterruptedException {
-        //exemple : https://myanimelist.p.rapidapi.com/v2/anime/genres
+    /**
+     * Récupère les genres d'animes disponibles.
+     * Exemple URL : https://myanimelist.p.rapidapi.com/v2/anime/genres
+     *
+     * @return la réponse HTTP contenant les genres d'animes
+     * @throws IOException          si une erreur d'entrée/sortie se produit lors de la requête HTTP
+     * @throws InterruptedException si l'exécution est interrompue lors de l'attente de la réponse HTTP
+     */
+    public HttpResponse<String> getAnimeGenres() throws IOException, InterruptedException {
         return request(BASE_URL + "v2/anime/genres");
     }
 

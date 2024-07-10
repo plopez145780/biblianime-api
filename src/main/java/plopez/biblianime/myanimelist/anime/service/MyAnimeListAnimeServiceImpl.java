@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.anime.entity.Season;
+import plopez.biblianime.myanimelist.anime.Season;
 import plopez.biblianime.myanimelist.anime.dto.AnimeSeasonDTO;
 import plopez.biblianime.myanimelist.anime.provider.MyAnimeListAnimeProvider;
 
@@ -34,14 +34,13 @@ public class MyAnimeListAnimeServiceImpl implements MyAnimeListAnimeService {
         try {
             // Récupère les animes saisonniers en JSON
             HttpResponse<String> seasonalAnimes = myAnimeListAnimeProvider.getSeasonalAnimes(year, season);
-            String body = seasonalAnimes.body();
 
             // Deserialization
             ObjectMapper objectMapper = new ObjectMapper();
             TypeReference<HashMap<String, List<AnimeSeasonDTO>>> typeRef = new TypeReference<>() {
             };
 
-            animesByType = objectMapper.readValue(body, typeRef);
+            animesByType = objectMapper.readValue(seasonalAnimes.body(), typeRef);
 
         } catch (Exception e) {
             e.printStackTrace();
