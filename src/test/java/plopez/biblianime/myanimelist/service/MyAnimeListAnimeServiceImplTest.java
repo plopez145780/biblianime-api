@@ -1,4 +1,4 @@
-package plopez.biblianime.myanimelist.anime.service;
+package plopez.biblianime.myanimelist.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -7,9 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import plopez.biblianime.myanimelist.anime.Season;
-import plopez.biblianime.myanimelist.anime.dto.AnimeSeasonDTO;
-import plopez.biblianime.myanimelist.anime.provider.MyAnimeListAnimeProvider;
+import plopez.biblianime.myanimelist.Season;
+import plopez.biblianime.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.myanimelist.provider.MyAnimeListAnimeProvider;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
@@ -91,7 +91,7 @@ class MyAnimeListAnimeServiceImplTest {
 
         HttpResponse<String> httpResponse = Mockito.mock(HttpResponse.class);
         Mockito.when(httpResponse.body()).thenReturn(jdd());
-        Mockito.when(myAnimeListAnimeProvider.getSeasonalAnimes(year, season)).thenReturn(httpResponse);
+        Mockito.when(myAnimeListAnimeProvider.getSeasonal(year, season)).thenReturn(httpResponse);
 
         // When
         Map<String, List<AnimeSeasonDTO>> resultat = service.getSeasonalAnimes(year, season);

@@ -1,9 +1,8 @@
-package plopez.biblianime.myanimelist.anime.provider;
+package plopez.biblianime.myanimelist.provider;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.myanimelist.anime.AnimeTopCategory;
-import plopez.biblianime.myanimelist.anime.Season;
+import plopez.biblianime.myanimelist.Season;
 
 import java.io.IOException;
 import java.net.URI;
@@ -30,13 +29,13 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
     /**
      * Récupère les détails d'un anime à partir de l'API MyAnimeList en utilisant l'ID de l'anime fourni.
      *
-     * @param animeId l'ID de l'anime à récupérer
+     * @param id l'ID de l'anime à récupérer
      * @return un objet HttpResponse contenant le corps de la réponse de l'API
      * @throws IOException          si une erreur d'E/S se produit pendant la requête
      * @throws InterruptedException si le thread est interrompu pendant l'attente de la réponse
      */
-    public HttpResponse<String> getAnime(int animeId) throws IOException, InterruptedException {
-        return request(BASE_URL + "anime/" + animeId);
+    public HttpResponse<String> get(int id) throws IOException, InterruptedException {
+        return request(BASE_URL + "anime/" + id);
     }
 
     /**
@@ -51,7 +50,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws IOException          si une erreur d'E/S se produit pendant la requête
      * @throws InterruptedException si le thread est interrompu pendant l'attente de la réponse
      */
-    public HttpResponse<String> searchAnimes(String query, Integer n, Integer score, Integer genre) throws IOException, InterruptedException {
+    public HttpResponse<String> search(String query, Integer n, Integer score, Integer genre) throws IOException, InterruptedException {
 
         StringBuilder url = new StringBuilder(BASE_URL + "v2/anime/search");
 
@@ -77,8 +76,8 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws IOException          si une erreur d'E/S se produit lors de la requête API
      * @throws InterruptedException si le thread est interrompu en attendant la réponse de l'API
      */
-    public HttpResponse<String> getTopAnimes(AnimeTopCategory category) throws IOException, InterruptedException {
-        return request(BASE_URL + "anime/top/" + category.getValue());
+    public HttpResponse<String> getTop(String category) throws IOException, InterruptedException {
+        return request(BASE_URL + "anime/top/" + category);
     }
 
     /**
@@ -90,7 +89,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws IOException          si une erreur d'E/S se produit lors de la requête API
      * @throws InterruptedException si le thread est interrompu en attendant la réponse de l'API
      */
-    public HttpResponse<String> getAnimeRecommendations(Integer page) throws IOException, InterruptedException {
+    public HttpResponse<String> getRecommendations(Integer page) throws IOException, InterruptedException {
         if (page == null || page < 1) page = 1;
         return request(BASE_URL + "v2/anime/recommendations" + "?p=" + page);
     }
@@ -104,7 +103,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws IOException          si une erreur d'E/S se produit lors de la requête API
      * @throws InterruptedException si le thread est interrompu en attendant la réponse de l'API
      */
-    public HttpResponse<String> getAnimeReviews(Integer page) throws IOException, InterruptedException {
+    public HttpResponse<String> getReviews(Integer page) throws IOException, InterruptedException {
         if (page == null || page < 1) page = 1;
         return request(BASE_URL + "v2/anime/reviews" + "?p=" + page);
     }
@@ -119,7 +118,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws IOException          si une erreur d'entrée/sortie se produit lors de la requête HTTP
      * @throws InterruptedException si l'exécution est interrompue lors de l'attente de la réponse HTTP
      */
-    public HttpResponse<String> getSeasonalAnimes(int year, Season season) throws IOException, InterruptedException {
+    public HttpResponse<String> getSeasonal(int year, Season season) throws IOException, InterruptedException {
         return request(BASE_URL + "v2/anime/seasonal" + "?year=" + year + "&season=" + season);
     }
 
@@ -131,7 +130,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws IOException          si une erreur d'entrée/sortie se produit lors de la requête HTTP
      * @throws InterruptedException si l'exécution est interrompue lors de l'attente de la réponse HTTP
      */
-    public HttpResponse<String> getAnimeGenres() throws IOException, InterruptedException {
+    public HttpResponse<String> getGenres() throws IOException, InterruptedException {
         return request(BASE_URL + "v2/anime/genres");
     }
 

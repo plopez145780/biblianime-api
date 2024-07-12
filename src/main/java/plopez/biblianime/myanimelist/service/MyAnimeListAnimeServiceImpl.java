@@ -1,12 +1,12 @@
-package plopez.biblianime.myanimelist.anime.service;
+package plopez.biblianime.myanimelist.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.myanimelist.anime.Season;
-import plopez.biblianime.myanimelist.anime.dto.AnimeSeasonDTO;
-import plopez.biblianime.myanimelist.anime.provider.MyAnimeListAnimeProvider;
+import plopez.biblianime.myanimelist.Season;
+import plopez.biblianime.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.myanimelist.provider.MyAnimeListAnimeProvider;
 
 import java.net.http.HttpResponse;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public class MyAnimeListAnimeServiceImpl implements MyAnimeListAnimeService {
 
         try {
             // Récupère les animes saisonniers en JSON
-            HttpResponse<String> seasonalAnimes = myAnimeListAnimeProvider.getSeasonalAnimes(year, season);
+            HttpResponse<String> seasonalAnimes = myAnimeListAnimeProvider.getSeasonal(year, season);
 
             // Deserialization
             ObjectMapper objectMapper = new ObjectMapper();

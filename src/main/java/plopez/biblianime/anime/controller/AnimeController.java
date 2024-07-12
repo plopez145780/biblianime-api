@@ -6,15 +6,18 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import plopez.biblianime.anime.dto.AnimeShortDTO;
+import plopez.biblianime.anime.dto.AnimeCardDTO;
+import plopez.biblianime.anime.dto.AnimesByTypeDTO;
 import plopez.biblianime.anime.entity.Anime;
-import plopez.biblianime.anime.entity.AnimeInformation;
 import plopez.biblianime.anime.entity.AnimeStatut;
-import plopez.biblianime.anime.entity.Season;
 import plopez.biblianime.anime.mapper.AnimeMapper;
 import plopez.biblianime.anime.service.AnimeService;
+import plopez.biblianime.myanimelist.Season;
+import plopez.biblianime.myanimelist.dto.AnimeSeasonDTO;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller pour les animés
@@ -77,18 +80,28 @@ public class AnimeController {
 
 
     @Operation(summary = "Obtenir la liste des animés de la saison", description = "Obtenir la liste des animés par statut")
-    @GetMapping("/animes/saisons")
-    public List<AnimeShortDTO> getAnimesBySeason(@RequestParam("year") int year,
-                                                 @RequestParam("season") Season season) {
-        List<AnimeInformation> animesBySeason = animeService.getAnimesBySeason(year, season);
-        return animesBySeason.stream()
-                .map(AnimeMapper::toAnimeShortDTO)
-                .toList();
+    @GetMapping("/animes/season")
+    public List<AnimesByTypeDTO> getAnimesBySeason(@RequestParam("year") int year,
+                                                   @RequestParam("season") Season season) {
+        Map<String, List<AnimeSeasonDTO>> animesBySeason = animeService.getAnimesBySeason(year, season);
+
+        List<AnimesByTypeDTO> animesByTypeDTOS = new ArrayList<>();
+
+        animesBySeason.forEach(
+                (key, value) -> {
+                    List<AnimeCardDTO> animeCardDTOS = value.stream()
+                            .map(AnimeMapper::toAnimeCardDTO)
+                            .toList();
+                    AnimesByTypeDTO animesByTypeDTO = new AnimesByTypeDTO(key, animeCardDTOS);
+                    animesByTypeDTOS.add(animesByTypeDTO);
+                }
+        );
+        return animesByTypeDTOS;
     }
 
     @Operation(summary = "Save l'animé", description = "Obtenir la liste des animés par statut")
     @PostMapping("/animes/saisons")
-    public List<Anime> saveAnimesBySeason(@RequestParam("year") int year,
+    public List<List<AnimeCardDTO>> saveAnimesBySeason(@RequestParam("year") int year,
                                           @RequestParam("season") Season season) {
         return null;
     }
