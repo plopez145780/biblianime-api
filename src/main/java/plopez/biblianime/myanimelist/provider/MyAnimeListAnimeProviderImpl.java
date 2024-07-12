@@ -5,9 +5,6 @@ import org.springframework.stereotype.Service;
 import plopez.biblianime.myanimelist.Season;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Service
@@ -22,10 +19,6 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
     @Value("${api.myanimelist.host}")
     private String X_RAPIDAPI_HOST;
 
-
-    public MyAnimeListAnimeProviderImpl() {
-    }
-
     /**
      * Récupère les détails d'un anime à partir de l'API MyAnimeList en utilisant l'ID de l'anime fourni.
      *
@@ -35,7 +28,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws InterruptedException si le thread est interrompu pendant l'attente de la réponse
      */
     public HttpResponse<String> get(int id) throws IOException, InterruptedException {
-        return request(BASE_URL + "anime/" + id);
+        return request(BASE_URL + "anime/" + id, X_RAPIDAPI_KEY, X_RAPIDAPI_HOST);
     }
 
     /**
@@ -64,7 +57,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
 
         if (genre != null) url.append("&genre=").append(genre);
 
-        return request(url.toString());
+        return request(url.toString(), X_RAPIDAPI_KEY, X_RAPIDAPI_HOST);
     }
 
     /**
@@ -77,7 +70,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws InterruptedException si le thread est interrompu en attendant la réponse de l'API
      */
     public HttpResponse<String> getTop(String category) throws IOException, InterruptedException {
-        return request(BASE_URL + "anime/top/" + category);
+        return request(BASE_URL + "anime/top/" + category, X_RAPIDAPI_KEY, X_RAPIDAPI_HOST);
     }
 
     /**
@@ -91,7 +84,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      */
     public HttpResponse<String> getRecommendations(Integer page) throws IOException, InterruptedException {
         if (page == null || page < 1) page = 1;
-        return request(BASE_URL + "v2/anime/recommendations" + "?p=" + page);
+        return request(BASE_URL + "v2/anime/recommendations" + "?p=" + page, X_RAPIDAPI_KEY, X_RAPIDAPI_HOST);
     }
 
     /**
@@ -105,7 +98,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      */
     public HttpResponse<String> getReviews(Integer page) throws IOException, InterruptedException {
         if (page == null || page < 1) page = 1;
-        return request(BASE_URL + "v2/anime/reviews" + "?p=" + page);
+        return request(BASE_URL + "v2/anime/reviews" + "?p=" + page, X_RAPIDAPI_KEY, X_RAPIDAPI_HOST);
     }
 
     /**
@@ -119,7 +112,7 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws InterruptedException si l'exécution est interrompue lors de l'attente de la réponse HTTP
      */
     public HttpResponse<String> getSeasonal(int year, Season season) throws IOException, InterruptedException {
-        return request(BASE_URL + "v2/anime/seasonal" + "?year=" + year + "&season=" + season);
+        return request(BASE_URL + "v2/anime/seasonal" + "?year=" + year + "&season=" + season, X_RAPIDAPI_KEY, X_RAPIDAPI_HOST);
     }
 
     /**
@@ -131,24 +124,6 @@ public class MyAnimeListAnimeProviderImpl implements MyAnimeListAnimeProvider {
      * @throws InterruptedException si l'exécution est interrompue lors de l'attente de la réponse HTTP
      */
     public HttpResponse<String> getGenres() throws IOException, InterruptedException {
-        return request(BASE_URL + "v2/anime/genres");
-    }
-
-    /**
-     * Envoie une requête HTTP GET à l'URL spécifiée avec les en-têtes nécessaires.
-     *
-     * @param url L'URL vers laquelle envoyer la requête
-     * @return Une réponse HttpResponse contenant le corps de la réponse sous forme de chaîne de caractères
-     * @throws IOException          si une erreur d'E/S se produit lors de la requête
-     * @throws InterruptedException si le thread est interrompu pendant l'attente de la réponse
-     */
-    private HttpResponse<String> request(String url) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("x-rapidapi-key", X_RAPIDAPI_KEY)
-                .header("x-rapidapi-host", X_RAPIDAPI_HOST)
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        return HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        return request(BASE_URL + "v2/anime/genres", X_RAPIDAPI_KEY, X_RAPIDAPI_HOST);
     }
 }
