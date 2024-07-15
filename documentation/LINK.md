@@ -27,6 +27,14 @@
 - https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 - https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html
 
+## Ehcache
+
+- https://www.baeldung.com/spring-boot-ehcache
+
+### JSR-107
+
+- https://docs.spring.io/spring-framework/reference/integration/cache/jsr-107.html
+
 ## Properties
 
 - https://www.baeldung.com/spring-boot-yaml-vs-properties
