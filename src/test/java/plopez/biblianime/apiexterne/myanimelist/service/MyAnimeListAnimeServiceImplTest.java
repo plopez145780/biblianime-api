@@ -1,4 +1,4 @@
-package plopez.biblianime.myanimelist.service;
+package plopez.biblianime.apiexterne.myanimelist.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -7,9 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import plopez.biblianime.myanimelist.Season;
-import plopez.biblianime.myanimelist.dto.AnimeSeasonDTO;
-import plopez.biblianime.myanimelist.provider.MyAnimeListAnimeProvider;
+import plopez.biblianime.apiexterne.myanimelist.Season;
+import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.apiexterne.myanimelist.provider.MyAnimeListAnimeProvider;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;

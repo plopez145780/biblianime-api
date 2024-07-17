@@ -1,10 +1,10 @@
-package plopez.biblianime.myanimelist.provider;
+package plopez.biblianime.apiexterne.myanimelist.provider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.myanimelist.Season;
+import plopez.biblianime.apiexterne.myanimelist.Season;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;

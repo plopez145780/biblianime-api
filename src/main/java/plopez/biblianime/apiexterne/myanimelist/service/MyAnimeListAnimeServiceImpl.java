@@ -1,15 +1,15 @@
-package plopez.biblianime.myanimelist.service;
+package plopez.biblianime.apiexterne.myanimelist.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.myanimelist.Season;
-import plopez.biblianime.myanimelist.dto.AnimeSeasonDTO;
-import plopez.biblianime.myanimelist.entity.ProviderExterne;
-import plopez.biblianime.myanimelist.entity.RequeteExterne;
-import plopez.biblianime.myanimelist.provider.MyAnimeListAnimeProvider;
-import plopez.biblianime.myanimelist.repository.RequeteExterneRepository;
+import plopez.biblianime.apiexterne.myanimelist.Season;
+import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.apiexterne.myanimelist.entity.ProviderExterne;
+import plopez.biblianime.apiexterne.myanimelist.entity.RequeteExterne;
+import plopez.biblianime.apiexterne.myanimelist.provider.MyAnimeListAnimeProvider;
+import plopez.biblianime.apiexterne.myanimelist.repository.RequeteExterneRepository;
 
 import java.net.http.HttpResponse;
 import java.time.LocalDate;

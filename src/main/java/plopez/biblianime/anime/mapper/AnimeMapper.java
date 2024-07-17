@@ -1,8 +1,8 @@
 package plopez.biblianime.anime.mapper;
 
 import plopez.biblianime.anime.dto.AnimeCardDTO;
-import plopez.biblianime.myanimelist.dto.AnimeSeasonDTO;
-import plopez.biblianime.myanimelist.dto.GenreDTO;
+import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.apiexterne.myanimelist.dto.GenreDTO;
 
 import java.util.List;
 

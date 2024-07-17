@@ -1,4 +1,4 @@
-package plopez.biblianime.myanimelist.dto;
+package plopez.biblianime.apiexterne.myanimelist.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -12,8 +12,8 @@ import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.AnimeStatut;
 import plopez.biblianime.anime.mapper.AnimeMapper;
 import plopez.biblianime.anime.service.AnimeService;
-import plopez.biblianime.myanimelist.Season;
-import plopez.biblianime.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.apiexterne.myanimelist.Season;
+import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
 
 import java.util.ArrayList;
 import java.util.List;

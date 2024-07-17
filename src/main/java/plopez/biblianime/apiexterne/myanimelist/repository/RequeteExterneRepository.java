@@ -1,10 +1,10 @@
-package plopez.biblianime.myanimelist.repository;
+package plopez.biblianime.apiexterne.myanimelist.repository;
 
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import plopez.biblianime.myanimelist.entity.ProviderExterne;
-import plopez.biblianime.myanimelist.entity.RequeteExterne;
+import plopez.biblianime.apiexterne.myanimelist.entity.ProviderExterne;
+import plopez.biblianime.apiexterne.myanimelist.entity.RequeteExterne;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package plopez.biblianime.myanimelist.provider;
+package plopez.biblianime.apiexterne.myanimelist.provider;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
