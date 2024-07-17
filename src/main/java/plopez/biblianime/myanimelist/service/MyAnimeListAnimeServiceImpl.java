@@ -51,7 +51,7 @@ public class MyAnimeListAnimeServiceImpl implements MyAnimeListAnimeService {
 
             //requete COUNT
             Long count = requeteExterneRepository.countByProviderAndDateBetween(ProviderExterne.MYANIMELIST, startDate, endDate);
-            if (count <= COUNT_MAX) {
+            if (count <= ProviderExterne.MYANIMELIST.getCount()) {
                 // execute l'appel
 
             // Récupère les animes saisonniers en JSON
