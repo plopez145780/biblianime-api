@@ -45,6 +45,12 @@
 
 - https://github.com/docker/awesome-compose/tree/master/spring-postgres
 
+# AOP
+
+- https://www.baeldung.com/spring-aop-vs-aspectj
+- https://www.baeldung.com/spring-aop
+- https://www.baeldung.com/spring-aop-annotation
+
 # IMPORT DATA CSV
 
 - http://opencsv.sourceforge.net/
