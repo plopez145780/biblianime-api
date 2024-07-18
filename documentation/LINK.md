@@ -50,6 +50,11 @@
 - https://www.baeldung.com/spring-aop-vs-aspectj
 - https://www.baeldung.com/spring-aop
 - https://www.baeldung.com/spring-aop-annotation
+- https://docs.spring.io/spring-framework/reference/core/aop.html
+- https://codegym.cc/fr/groups/posts/fr.543.quest-ce-que-laop-principes-de-la-programmation-orientee-aspect
+- https://reflectoring.io/aop-spring/
+- https://stackoverflow.com/questions/60234800/how-to-pass-variables-as-parameters-to-an-aspect
+-
 
 # IMPORT DATA CSV
 

@@ -1,10 +1,10 @@
-package plopez.biblianime.apiexterne.myanimelist.repository;
+package plopez.biblianime.apiexterne.repository;
 
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import plopez.biblianime.apiexterne.myanimelist.entity.ProviderExterne;
-import plopez.biblianime.apiexterne.myanimelist.entity.RequeteExterne;
+import plopez.biblianime.apiexterne.entity.ProviderExterne;
+import plopez.biblianime.apiexterne.entity.RequeteExterne;
 
 import java.time.LocalDateTime;
 
@@ -17,8 +17,9 @@ public interface RequeteExterneRepository extends CrudRepository<RequeteExterne,
     // delete pour effacer l'historique dans le temps
     void deleteAllByDateBefore(LocalDateTime date);
 
-    //count
-    Long countByProviderAndDateBetween(ProviderExterne provider, LocalDateTime startDate, LocalDateTime endDate);
+
+    int countByProviderAndDateBetween(ProviderExterne provider, LocalDateTime startDate, LocalDateTime endDate);
+
 
 
 }

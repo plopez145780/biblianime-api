@@ -1,4 +1,4 @@
-package plopez.biblianime.apiexterne.myanimelist.entity;
+package plopez.biblianime.apiexterne.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,8 +9,19 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+
 @Entity
 public class RequeteExterne {
+
+
+    public RequeteExterne() {
+    }
+
+    public RequeteExterne(ProviderExterne provider, String url) {
+        this.provider = provider;
+        this.date = LocalDateTime.now();
+        this.url = url;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
