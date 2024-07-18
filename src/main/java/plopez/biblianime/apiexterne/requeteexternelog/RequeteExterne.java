@@ -1,4 +1,4 @@
-package plopez.biblianime.apiexterne.entity;
+package plopez.biblianime.apiexterne.requeteexternelog;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,13 +9,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-
 @Entity
 public class RequeteExterne {
-
-
-    public RequeteExterne() {
-    }
 
     public RequeteExterne(ProviderExterne provider, String url) {
         this.provider = provider;

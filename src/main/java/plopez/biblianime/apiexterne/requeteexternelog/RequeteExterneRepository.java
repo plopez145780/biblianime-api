@@ -1,10 +1,8 @@
-package plopez.biblianime.apiexterne.repository;
+package plopez.biblianime.apiexterne.requeteexternelog;
 
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import plopez.biblianime.apiexterne.entity.ProviderExterne;
-import plopez.biblianime.apiexterne.entity.RequeteExterne;
 
 import java.time.LocalDateTime;
 

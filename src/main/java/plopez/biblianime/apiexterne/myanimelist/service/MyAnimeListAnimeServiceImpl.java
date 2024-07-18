@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import plopez.biblianime.apiexterne.myanimelist.Season;
 import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
 import plopez.biblianime.apiexterne.myanimelist.provider.MyAnimeListAnimeProvider;
-import plopez.biblianime.apiexterne.repository.RequeteExterneRepository;
+import plopez.biblianime.apiexterne.requeteexternelog.RequeteExterneRepository;
 
 import java.net.http.HttpResponse;
 import java.util.HashMap;

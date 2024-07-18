@@ -47,14 +47,30 @@
 
 # AOP
 
+- https://www.jmdoudoux.fr/java/dej/chap-aop.htm
+
+## Annotation + Aspect
+
+- https://www.baeldung.com/spring-aop-annotation
+- https://www.baeldung.com/spring-aop-get-advised-method-info
+- https://www.baeldung.com/java-custom-annotation
+
+## Spring AOP
+
 - https://www.baeldung.com/spring-aop-vs-aspectj
 - https://www.baeldung.com/spring-aop
-- https://www.baeldung.com/spring-aop-annotation
 - https://docs.spring.io/spring-framework/reference/core/aop.html
 - https://codegym.cc/fr/groups/posts/fr.543.quest-ce-que-laop-principes-de-la-programmation-orientee-aspect
 - https://reflectoring.io/aop-spring/
 - https://stackoverflow.com/questions/60234800/how-to-pass-variables-as-parameters-to-an-aspect
--
+- https://www.baeldung.com/spring-aop-pointcut-tutorial
+- https://www.baeldung.com/spring-aop-advice-tutorial
+
+## AspectJ
+
+- https://eclipse.dev/aspectj/
+- https://eclipse.dev/aspectj/doc/latest/index.html
+- https://www.baeldung.com/aspectj
 
 # IMPORT DATA CSV
 

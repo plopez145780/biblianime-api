@@ -1,4 +1,4 @@
-package plopez.biblianime.apiexterne.entity;
+package plopez.biblianime.apiexterne.requeteexternelog;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,4 @@
-package plopez.biblianime.apiexterne.annotation;
-
-import plopez.biblianime.apiexterne.entity.ProviderExterne;
+package plopez.biblianime.apiexterne.requeteexternelog;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,6 +8,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface RequeteExterneLog {
-    ProviderExterne provider();
 }
 
