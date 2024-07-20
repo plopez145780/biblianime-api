@@ -2,8 +2,8 @@ package plopez.biblianime.anime.service;
 
 import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.AnimeStatut;
-import plopez.biblianime.apiexterne.myanimelist.Season;
 import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
 
 import java.util.List;
 import java.util.Map;

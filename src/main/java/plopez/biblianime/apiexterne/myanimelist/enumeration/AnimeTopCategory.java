@@ -1,4 +1,4 @@
-package plopez.biblianime.apiexterne.myanimelist;
+package plopez.biblianime.apiexterne.myanimelist.enumeration;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

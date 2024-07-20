@@ -54,6 +54,8 @@
 - https://www.baeldung.com/spring-aop-annotation
 - https://www.baeldung.com/spring-aop-get-advised-method-info
 - https://www.baeldung.com/java-custom-annotation
+- https://www.baeldung.com/java-get-field-annotations
+- https://www.baeldung.com/java-scan-annotations-runtime
 
 ## Spring AOP
 

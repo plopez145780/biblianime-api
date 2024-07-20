@@ -12,24 +12,21 @@ import java.time.LocalDateTime;
 @Entity
 public class RequeteExterne {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotNull
+    @Column(nullable = false, columnDefinition = "timestamp default current_timestamp")
+    private LocalDateTime date;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private ProviderExterne provider;
+    @NotNull
+    private String url;
+
     public RequeteExterne(ProviderExterne provider, String url) {
         this.provider = provider;
         this.date = LocalDateTime.now();
         this.url = url;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull
-    @Column(nullable = false, columnDefinition = "timestamp default current_timestamp")
-    private LocalDateTime date;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private ProviderExterne provider;
-
-    @NotNull
-    private String url;
 }

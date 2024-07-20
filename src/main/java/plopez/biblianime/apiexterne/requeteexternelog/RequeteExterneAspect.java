@@ -15,34 +15,6 @@ public class RequeteExterneAspect {
     @Autowired
     RequeteExterneService requeteExterneService;
 
-    @Around("@annotation(plopez.biblianime.apiexterne.requeteexternelog.RequeteExterneLog)")
-    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        Object result;
-
-        ProviderExterne providerExterne = getProviderExterne(proceedingJoinPoint);
-        verificationLimite(providerExterne);
-
-        result = proceedingJoinPoint.proceed();
-        HttpResponse<String> httpResponse = (HttpResponse<String>) result;
-
-        requeteExterneService.save(providerExterne, httpResponse.uri().toString());
-
-        return result;
-    }
-
-    private void verificationLimite(ProviderExterne providerExterne) throws Exception {
-        int countedForCurrentMonthByProvider = requeteExterneService.countForCurrentMonthByProvider(providerExterne);
-        if (countedForCurrentMonthByProvider > providerExterne.getRequestLimite()) {
-            throw new Exception("La limite de requête pour le fournisseur :"
-                    + providerExterne.getTitre()
-                    + " est atteinte "
-                    + countedForCurrentMonthByProvider
-                    + " / "
-                    + providerExterne.getRequestLimite()
-            );
-        }
-    }
-
     /**
      * Récupère l'annotation ProviderExterne à partir du ProceedingJoinPoint donné et renvoie le fournisseur spécifié dans l'annotation.
      *
@@ -59,5 +31,36 @@ public class RequeteExterneAspect {
                     + " n'est pas annotée avec RequeteExterneProvider");
         }
         return requeteExterneLog.provider();
+    }
+
+    @Around("@annotation(plopez.biblianime.apiexterne.requeteexternelog.RequeteExterneLog)")
+    public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        Object result;
+
+        ProviderExterne providerExterne = getProviderExterne(proceedingJoinPoint);
+        verificationLimite(providerExterne);
+
+        result = proceedingJoinPoint.proceed();
+
+        if (result != null) {
+            HttpResponse<String> httpResponse = (HttpResponse<String>) result;
+            requeteExterneService.save(providerExterne, httpResponse.uri().toString());
+        }
+
+
+        return result;
+    }
+
+    private void verificationLimite(ProviderExterne providerExterne) throws Exception {
+        int countedForCurrentMonthByProvider = requeteExterneService.countForCurrentMonthByProvider(providerExterne);
+        if (countedForCurrentMonthByProvider > providerExterne.getRequestLimite()) {
+            throw new Exception("La limite de requête pour le fournisseur :"
+                    + providerExterne.getTitre()
+                    + " est atteinte "
+                    + countedForCurrentMonthByProvider
+                    + " / "
+                    + providerExterne.getRequestLimite()
+            );
+        }
     }
 }

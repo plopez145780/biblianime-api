@@ -6,8 +6,8 @@ import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.AnimeStatut;
 import plopez.biblianime.anime.entity.AnimeTitle;
 import plopez.biblianime.anime.repository.AnimeRepository;
-import plopez.biblianime.apiexterne.myanimelist.Season;
 import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
 import plopez.biblianime.apiexterne.myanimelist.service.MyAnimeListAnimeService;
 
 import java.time.LocalDate;

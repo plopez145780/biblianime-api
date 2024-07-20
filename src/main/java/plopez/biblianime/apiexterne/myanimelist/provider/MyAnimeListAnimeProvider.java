@@ -1,6 +1,6 @@
 package plopez.biblianime.apiexterne.myanimelist.provider;
 
-import plopez.biblianime.apiexterne.myanimelist.Season;
+import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
 
 import java.net.http.HttpResponse;
 

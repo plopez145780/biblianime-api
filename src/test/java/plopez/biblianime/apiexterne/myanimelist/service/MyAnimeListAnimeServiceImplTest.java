@@ -7,8 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import plopez.biblianime.apiexterne.myanimelist.Season;
 import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
 import plopez.biblianime.apiexterne.myanimelist.provider.MyAnimeListAnimeProvider;
 
 import java.io.IOException;

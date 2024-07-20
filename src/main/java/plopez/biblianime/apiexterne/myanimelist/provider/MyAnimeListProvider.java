@@ -6,13 +6,17 @@ public interface MyAnimeListProvider {
 
     HttpResponse<String> get(int id);
 
-    HttpResponse<String> search(String query, Integer n, Integer score, Integer genre);
+    HttpResponse<String> search(String query, Integer n, Integer score, String genre);
 
-    HttpResponse<String> getTop(String category);
+    //HttpResponse<String> getTop(Integer page, String category);
 
-    HttpResponse<String> getRecommendations(Integer page);
+    //HttpResponse<String> getRecommendations(Integer page);
 
-    HttpResponse<String> getReviews(Integer page);
+    //HttpResponse<String> getRecommendationsByRessource(int id);
+
+    //HttpResponse<String> getReviews(Integer page, Boolean spoilers, Boolean preliminary, String includeTags, String excludeTags);
+
+    //HttpResponse<String> getReviewsByRessources(Integer page, Boolean spoilers, Boolean preliminary, String includeTags, String excludeTags, int id);
 
     HttpResponse<String> getGenres();
 }

@@ -12,8 +12,8 @@ import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.AnimeStatut;
 import plopez.biblianime.anime.mapper.AnimeMapper;
 import plopez.biblianime.anime.service.AnimeService;
-import plopez.biblianime.apiexterne.myanimelist.Season;
 import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
+import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +102,7 @@ public class AnimeController {
     @Operation(summary = "Save l'animé", description = "Obtenir la liste des animés par statut")
     @PostMapping("/animes/saisons")
     public List<List<AnimeCardDTO>> saveAnimesBySeason(@RequestParam("year") int year,
-                                          @RequestParam("season") Season season) {
+                                                       @RequestParam("season") Season season) {
         return null;
     }
 

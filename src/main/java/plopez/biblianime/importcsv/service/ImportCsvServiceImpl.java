@@ -26,7 +26,7 @@ public class ImportCsvServiceImpl implements ImportCsvService {
     @Autowired
     TitleAnimeService titleAnimeService;
 
-    @Value( "${app.importcsv.source}" )
+    @Value("${app.importcsv.source}")
     String fileName;
 
     public void importation() throws IOException {
