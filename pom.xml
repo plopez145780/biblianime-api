@@ -10,7 +10,7 @@
     </parent>
     <groupId>plopez</groupId>
     <artifactId>biblianime-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>API BibliAnime</name>
     <description>Bibliothèque d'animés</description>
     <properties>
