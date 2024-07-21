@@ -3,7 +3,7 @@
 ################################## DEPENDANCES #################################
 
 # Créer une étape pour la résolution et le téléchargement des dépendances.
-FROM eclipse-temurin:21-jdk-jammy as deps
+FROM eclipse-temurin:21-jdk-jammy AS deps
 
 WORKDIR /build
 
@@ -26,7 +26,7 @@ RUN --mount=type=bind,source=pom.xml,target=pom.xml \
 # vous devrez mettre à jour cette étape avec le nom de fichier correct de votre paquetage
 # et mettre à jour l'image de base de l'étape « final » en utilisant le serveur d'application approprié,
 # par exemple en utilisant tomcat (https://hub.docker.com/_/tomcat/) comme image de base.
-FROM deps as package
+FROM deps AS package
 
 WORKDIR /build
 
@@ -42,7 +42,7 @@ RUN --mount=type=bind,source=pom.xml,target=pom.xml \
 # Profitez des outils de couche de Spring Boot et de la mise en cache de Docker en extrayant l'application packagée
 # en couches séparées qui peuvent être copiées dans l'étape finale. Voir la documentation de Spring pour référence :
 # https://docs.spring.io/spring-boot/docs/current/reference/html/container-images.html
-FROM package as extract
+FROM package AS extract
 
 WORKDIR /build
 
