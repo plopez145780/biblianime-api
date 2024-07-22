@@ -52,15 +52,11 @@
             <optional>true</optional>
         </dependency>
         <!-- Cache JSR-107 : ehcache -->
+        <!-- /!\ Bloquer a 3.9.11, a cause de depo http de jaxb -->
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>3.10.8</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.cache</groupId>
-            <artifactId>cache-api</artifactId>
-            <version>1.1.1</version>
+            <version>3.9.11</version>
         </dependency>
         <!-- AOP -->
         <dependency>
