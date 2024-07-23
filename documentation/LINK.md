@@ -120,7 +120,11 @@
 - https://spring.io/guides/topicals/spring-boot-docker
 - https://spring.io/guides/gs/spring-boot-docker
 
-Docker compose healthchecks postgres
+## Docker Optimisation
+
+- https://medium.com/@RoussiAbel/optimizing-java-base-docker-images-size-from-674mb-to-58mb-c1b7c911f622
+
+## Docker compose healthchecks postgres
 - https://www.postgresql.org/docs/current/app-pg-isready.html
 - https://stackoverflow.com/questions/65115627/safe-ways-to-specify-postgres-parameters-for-healthchecks-in-docker-compose
 - https://stackoverflow.com/questions/54988792/docker-compose-healthcheck-use-environment-variables#54989793
