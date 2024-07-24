@@ -40,7 +40,13 @@
 - https://www.baeldung.com/spring-boot-yaml-vs-properties
 - https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
 - https://docs.spring.io/spring-boot/reference/data/sql.html
-- 
+
+- https://www.baeldung.com/properties-with-spring
+- https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html
+- https://www.baeldung.com/spring-profiles
+- https://www.baeldung.com/spring-boot-docker-start-with-profile
+- https://maven.apache.org/guides/introduction/introduction-to-profiles.html
+
 ## Spring + Postgres
 
 - https://github.com/docker/awesome-compose/tree/master/spring-postgres
@@ -123,6 +129,8 @@
 ## Docker Optimisation
 
 - https://medium.com/@RoussiAbel/optimizing-java-base-docker-images-size-from-674mb-to-58mb-c1b7c911f622
+- https://www.baeldung.com/jlink
+- https://snyk.io/fr/blog/jlink-create-docker-images-spring-boot-java/
 
 ## Docker compose healthchecks postgres
 - https://www.postgresql.org/docs/current/app-pg-isready.html

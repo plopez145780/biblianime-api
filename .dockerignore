@@ -32,3 +32,11 @@
 **/vendor
 LICENSE
 README.md
+
+.github
+.idea
+db
+documentation
+pgadmin
+**/*.template
+

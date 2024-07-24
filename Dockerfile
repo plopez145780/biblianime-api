@@ -37,8 +37,22 @@ COPY ./src src/
 
 RUN --mount=type=bind,source=pom.xml,target=pom.xml \
     --mount=type=cache,target=/root/.m2 \
-    ./mvnw package -DskipTests && \
+    ./mvnw package -Pprod -DskipTests && \
     mv target/$(./mvnw help:evaluate -Dexpression=project.artifactId -q -DforceStdout)-$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout).jar target/app.jar
+
+
+################################## EXTRACTION ##################################
+
+# Créer une étape pour extraire l'application en couches séparées.
+# Profitez des outils de couche de Spring Boot et de la mise en cache de Docker en extrayant l'application packagée
+# en couches séparées qui peuvent être copiées dans l'étape finale. Voir la documentation de Spring pour référence :
+# https://docs.spring.io/spring-boot/docs/current/reference/html/container-images.html
+
+FROM package AS extract
+
+WORKDIR /build
+
+RUN java -Djarmode=layertools -jar target/app.jar extract --destination target/extracted
 
 
 ################################## JDEPS ##################################
@@ -56,22 +70,8 @@ RUN jdeps --ignore-missing-deps -q \
     --recursive \
     --multi-release 21 \
     --print-module-deps \
-    --class-path 'BOOT-INF/lib/*' \
+    --class-path 'target/dependency/*' \
     target/app.jar > modules.txt
-
-
-################################## EXTRACTION ##################################
-
-# Créer une étape pour extraire l'application en couches séparées.
-# Profitez des outils de couche de Spring Boot et de la mise en cache de Docker en extrayant l'application packagée
-# en couches séparées qui peuvent être copiées dans l'étape finale. Voir la documentation de Spring pour référence :
-# https://docs.spring.io/spring-boot/docs/current/reference/html/container-images.html
-
-FROM package AS extract
-
-WORKDIR /build
-
-RUN java -Djarmode=layertools -jar target/app.jar extract --destination target/extracted
 
 
 ################################## CUSTOM JRE ##################################
@@ -93,7 +93,6 @@ RUN $JAVA_HOME/bin/jlink \
          --strip-debug \
          --no-man-pages \
          --no-header-files \
-         --compress=2 \
          --output /optimized-jre-21
 
 
