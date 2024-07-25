@@ -9,6 +9,7 @@ import plopez.biblianime.anime.service.TitleAnimeService;
 
 import java.util.List;
 
+@Deprecated
 @Tag(name = "titre", description = "API des titres")
 @RestController
 public class AnimeTitleController {
