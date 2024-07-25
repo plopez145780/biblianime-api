@@ -105,7 +105,7 @@ RUN $JAVA_HOME/bin/jlink \
 # Si la reproductibilité est importante, envisagez d'utiliser une SHA digest spécifique, comme
 # eclipse-temurin@sha256:99cede493dfd88720b610eb8077c8688d3cca50003d76d1d539b0efc8cca72b4.
 
-FROM alpine:3 AS final
+FROM alpine AS final
 
 ENV JAVA_HOME=/opt/jre/jre-21
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
