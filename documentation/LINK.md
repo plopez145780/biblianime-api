@@ -1,3 +1,23 @@
+# Getting Started
+
+### Reference Documentation
+
+For further reference, please consider the following sections:
+
+* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
+* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.0/maven-plugin/reference/html/)
+* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.0/maven-plugin/reference/html/#build-image)
+* [Spring Web](https://docs.spring.io/spring-boot/docs/2.7.0/reference/htmlsingle/#boot-features-developing-web-applications)
+* [Spring REST Docs](https://docs.spring.io/spring-restdocs/docs/current/reference/html5/)
+
+### Guides
+
+The following guides illustrate how to use some features concretely:
+
+* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
+* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
+* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+
 # BDD 
 
 ## H2
@@ -15,6 +35,14 @@
 - https://hub.docker.com/r/dpage/pgadmin4
 - https://www.pgadmin.org/
 - https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+
+## MongoDB
+
+- https://www.mongodb.com/fr-fr
+- https://hub.docker.com/_/mongo
+- https://hub.docker.com/_/mongo-express
+- https://spring.io/guides/gs/accessing-data-mongodb
+- https://spring.io/guides/gs/accessing-mongodb-data-rest
 
 # SWAGGER
 
@@ -136,3 +164,27 @@
 - https://www.postgresql.org/docs/current/app-pg-isready.html
 - https://stackoverflow.com/questions/65115627/safe-ways-to-specify-postgres-parameters-for-healthchecks-in-docker-compose
 - https://stackoverflow.com/questions/54988792/docker-compose-healthcheck-use-environment-variables#54989793
+
+# API
+
+- https://rapidapi.com/blog/how-to-use-an-api-with-java/
+
+## myanimelist
+
+- https://myanimelist.net/apiconfig/references/api/v2
+- https://myanimelist.net/forum/?topicid=1973077
+
+- https://gitlab.com/-/snippets/2039434
+- https://myanimelist.net/blog.php?eid=835707
+- https://myanimelist.net/apiconfig/references/authorization
+
+- https://myanimelist.net/forum/?topicid=2142532
+
+## webtoon
+
+- https://apidojo.net/api-of-brands/
+
+## Autres
+
+- https://github.com/AniList/ApiV2-GraphQL-Docs?ref=public_apis
+- https://www.animenewsnetwork.com/encyclopedia/api.php?ref=public_apis
