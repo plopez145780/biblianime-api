@@ -79,6 +79,11 @@ The following guides illustrate how to use some features concretely:
 
 - https://github.com/docker/awesome-compose/tree/master/spring-postgres
 
+## JPA (BDD / data / script)
+
+- https://www.baeldung.com/spring-data-jpa-generate-db-schema
+- https://thorben-janssen.com/generate-database-schema-jpa/
+
 # AOP
 
 - https://www.jmdoudoux.fr/java/dej/chap-aop.htm
@@ -194,6 +199,14 @@ The following guides illustrate how to use some features concretely:
 
 - https://github.com/AniList/ApiV2-GraphQL-Docs?ref=public_apis
 - https://www.animenewsnetwork.com/encyclopedia/api.php?ref=public_apis
+
+# Hébergement
+
+## AWS
+
+- https://aws.amazon.com/fr/free/
+- https://aws.amazon.com/fr/ecs/
+
 
 # Maven
 
