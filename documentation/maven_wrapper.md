@@ -13,13 +13,15 @@ Cela permet aussi d'avoir la même version dans l'environnement de build dans la
 
 # Installation de Maven Wrapper dans un projet
 
-Il existe deux façons de le configurer dans un projet, où le plus simple est d'utiliser un plugin approprié pour l'
-automatiser ou en appliquant l'installation manuelle.
+Il existe deux façons de le configurer dans un projet, où le plus simple est d'utiliser un plugin approprié pour 
+l'automatiser ou en appliquant l'installation manuelle.
 
-## Plugin
+## Plugin Maven Wrapper
 
-Utilisons ce [plugin Maven Wrapper](https://maven.apache.org/wrapper/maven-wrapper-plugin/) pour faire l'installation
-automatique dans un simple projet Spring Boot.
+L'installation et la mise à jour du Wrapper peut être fait avec le [plugin Maven Wrapper](https://maven.apache.org/wrapper/maven-wrapper-plugin/).
+Il faut pour cela un maven fonctionnel quelle que soit la version 
+(installer en local sur le PC, ou celui de l'IDE, ou le Maven Wrapper versionné dans le projet)
+
 Tout d'abord, nous devons aller dans le dossier principal du projet et exécuter cette commande :
 
 ```mvn -N wrapper:wrapper```
@@ -28,14 +30,16 @@ On peut aussi spécifier la version de Maven :
 
 ```mvn -N wrapper:wrapper -Dmaven=3.5.2```
 
+La version peut être configurée dans le pom.xml
+
 L'option -N signifie non-récursif de sorte que le Wrapper ne sera appliqué qu'au projet principal du répertoire actuel,
 pas dans aucun sous-module.
 
-Après avoir exécuté l'objectif, nous aurons plus de fichiers et de répertoires dans le projet:
+Après avoir exécuté l'objectif, nous aurons plus de fichiers et de répertoires dans le projet :
 
-    mvnwmvnw: c'est un script shell exécutable Unix utilisé à la place d'un Maven entièrement installé
-    mvnw.cmd : c'est la version Lot du script ci-dessus
-    mvn : le dossier caché qui détient la bibliothèque Maven Wrapper Java et son fichier de propriétés
+    mvnw: c'est un script shell exécutable Unix utilisé à la place d'un Maven entièrement installé.
+    mvnw.cmd : c'est la version Batch du script ci-dessus.
+    .mvn : le dossier caché qui détient la bibliothèque Maven Wrapper Java et son fichier de propriétés
 
 ## Installation manuelle
 
@@ -68,8 +72,9 @@ Executons notre projet Spring-Boot :
 
 ```./mvnw spring-boot:run```
 
-La sortie est la même que pour un Maven entièrement installé:
-```mvn wrapper springboot```
+La sortie est la même que pour un Maven entièrement installé.
 
-Remarque: nous utilisons le mvnw exécutable à la place de mvn, qui est maintenant le programme de ligne de commande
+Remarque : nous utilisons le mvnw exécutable à la place de mvn, qui est maintenant le programme de ligne de commande
 Maven.
+
+

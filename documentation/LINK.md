@@ -165,6 +165,12 @@ The following guides illustrate how to use some features concretely:
 - https://stackoverflow.com/questions/65115627/safe-ways-to-specify-postgres-parameters-for-healthchecks-in-docker-compose
 - https://stackoverflow.com/questions/54988792/docker-compose-healthcheck-use-environment-variables#54989793
 
+## Docker + angular
+
+- https://thecode.fr/dockerizer-une-application-angular/
+- https://dev.to/amerigom/how-to-dockerize-an-angular-app-for-different-environments-1njb
+- https://medium.com/@jfgreffier/conteneuriser-votre-application-angular-avec-docker-et-nginx-6378b63a73f9
+
 # API
 
 - https://rapidapi.com/blog/how-to-use-an-api-with-java/
@@ -188,3 +194,13 @@ The following guides illustrate how to use some features concretely:
 
 - https://github.com/AniList/ApiV2-GraphQL-Docs?ref=public_apis
 - https://www.animenewsnetwork.com/encyclopedia/api.php?ref=public_apis
+
+# Maven
+
+## Wrapper
+
+- https://www.baeldung.com/maven-wrapper
+- https://maven.apache.org/wrapper/maven-wrapper-plugin/index.html
+
+- A LIRE : https://maven.apache.org/surefire/maven-surefire-plugin/index.html
+- A LIRE : https://www.baeldung.com/jacoco

@@ -1,3 +1,3 @@
 # Sommaire
 
-- [Maven Wrapper (mvnw)](mvnw.md)
+- [Maven Wrapper (mvnw)](maven_wrapper.md)
