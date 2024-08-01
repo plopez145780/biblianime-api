@@ -19,3 +19,6 @@ api:
     base-url: #https://url.com/
     key: #X_RAPIDAPI_KEY
     host: #X_RAPIDAPI_HOST
+  myanimelistofficiel:
+    base-url: #https://url.com/
+    client-id: #SECRET-ID
