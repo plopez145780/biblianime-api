@@ -8,6 +8,7 @@ import plopez.biblianime.apiexterne.requeteexternelog.RequeteExterneProvider;
 
 import java.net.http.HttpResponse;
 
+@Deprecated
 @RequeteExterneProvider(provider = ProviderExterne.MYANIMELIST)
 @Service
 public class MyAnimeListAnimeProviderImpl extends MyAnimeListProviderImpl implements MyAnimeListAnimeProvider {

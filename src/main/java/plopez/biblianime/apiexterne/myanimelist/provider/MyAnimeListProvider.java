@@ -2,6 +2,7 @@ package plopez.biblianime.apiexterne.myanimelist.provider;
 
 import java.net.http.HttpResponse;
 
+@Deprecated
 public interface MyAnimeListProvider {
 
     HttpResponse<String> get(int id);

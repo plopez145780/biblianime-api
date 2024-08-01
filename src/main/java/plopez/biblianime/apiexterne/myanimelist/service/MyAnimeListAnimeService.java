@@ -6,6 +6,7 @@ import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public interface MyAnimeListAnimeService {
 
     AnimeDTO getAnime(int id);
