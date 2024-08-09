@@ -1,11 +1,11 @@
-package plopez.biblianime.anime.dto;
+package plopez.biblianime.anime.entity;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class AnimeDetailDTO {
+public class Anime2 {
 
     private String title;
     private List<String> alternativeTitle;
@@ -17,5 +17,6 @@ public class AnimeDetailDTO {
     private String imageUrl;
     private int totalEpisodes;
     private int myanimelistId; //extraire de l'URL https://myanimelist.net/anime/55701/Kimetsu_no_Yaiba__Hashira_Geiko-hen
+
 
 }

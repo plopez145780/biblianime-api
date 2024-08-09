@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Titre d'animé
- */
+@Deprecated
 @Getter
 @Setter
 @Entity

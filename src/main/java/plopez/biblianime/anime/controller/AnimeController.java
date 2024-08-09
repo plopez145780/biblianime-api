@@ -3,25 +3,22 @@ package plopez.biblianime.anime.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import plopez.biblianime.anime.dto.AnimeCardDTO;
 import plopez.biblianime.anime.dto.AnimesByTypeDTO;
 import plopez.biblianime.anime.entity.Anime;
+import plopez.biblianime.anime.entity.Anime2;
 import plopez.biblianime.anime.entity.AnimeStatut;
 import plopez.biblianime.anime.mapper.AnimeMapper;
 import plopez.biblianime.anime.service.AnimeService;
-import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
 import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
-/**
- * Controller pour les animés
- */
 @Tag(name = "animé", description = "API des animés")
 @Validated
 @RestController
@@ -30,35 +27,72 @@ public class AnimeController {
     @Autowired
     private AnimeService animeService;
 
+    @Autowired
+    private AnimeMapper animeMapper;
+
     // CREATE
-    @Operation(summary = "Ajouter un nouvel animé", description = "Ajouter un nouvel animé")
+
+    @Deprecated
+    @Operation(
+            summary = "Ajouter un nouvel animé",
+            description = "Ajouter un nouvel animé"
+    )
     @PostMapping("/animes")
     public Anime add(@Valid @RequestBody Anime anime) {
-        return animeService.save(anime);
+        return animeService.add(anime);
+    }
+
+    @Operation(
+            summary = "Ajouter un nouvel animé à partir de l'id de myAnimeList",
+            description = "Ajouter un nouvel animé à partir de l'id de myAnimeList"
+    )
+    @PostMapping("/animes/{animeId}")
+    public Boolean add(@Valid @NotNull @PathVariable("animeId") Integer animeId) {
+
+        Anime2 anime = animeService.add(animeId);
+        return Boolean.TRUE;
     }
 
     // READ
-    @Operation(summary = "Obtenir la liste des animés", description = "Obtenir la liste des animés")
+
+    @Deprecated
+    @Operation(
+            summary = "Obtenir la liste des animés",
+            description = "Obtenir la liste des animés"
+    )
     @GetMapping("/animes")
     public List<Anime> findAll() {
         return animeService.findAll();
     }
 
-    @Operation(summary = "Obtenir un animé", description = "Obtenir un animé")
+    @Deprecated
+    @Operation(
+            summary = "Obtenir un animé",
+            description = "Obtenir un animé"
+    )
     @GetMapping("/animes/{id}")
     public Anime find(@PathVariable("id") Long animeId) {
         return animeService.find(animeId);
     }
 
     // UPDATE
-    @Operation(summary = "Mettre à jour un animé", description = "Mettre à jour un animé")
+
+    @Deprecated
+    @Operation(
+            summary = "Mettre à jour un animé",
+            description = "Mettre à jour un animé"
+    )
     @PutMapping("/animes/{id}")
     public Anime update(@RequestBody Anime anime, @PathVariable("id") Long animeId) {
         return animeService.update(anime, animeId);
     }
 
     // DELETE
-    @Operation(summary = "Supprimer un animé", description = "Supprimer un animé")
+
+    @Operation(
+            summary = "Supprimer un animé",
+            description = "Supprimer un animé"
+    )
     @DeleteMapping("/animes/{id}")
     public String delete(@PathVariable("id") Long animeId) {
         animeService.delete(animeId);
@@ -66,45 +100,41 @@ public class AnimeController {
     }
 
     // AUTRES ACTIONS
-    @Operation(summary = "Obtenir la liste des animés par titre", description = "Obtenir la liste des animés par titre")
+
+    @Deprecated
+    @Operation(
+            summary = "Obtenir la liste des animés par titre",
+            description = "Obtenir la liste des animés par titre"
+    )
     @GetMapping("/animes/findByTitle")
     public List<Anime> findByTitle(@RequestParam("titre") String titleName) {
         return animeService.findByTitle(titleName);
     }
 
-    @Operation(summary = "Obtenir la liste des animés par statut", description = "Obtenir la liste des animés par statut")
+    @Deprecated
+    @Operation(
+            summary = "Obtenir la liste des animés par statut",
+            description = "Obtenir la liste des animés par statut"
+    )
     @GetMapping("/animes/findByStatut")
     public List<Anime> findByStatut(@RequestParam("statut") AnimeStatut statut) {
         return animeService.findByStatut(statut);
     }
 
-
-    @Operation(summary = "Obtenir la liste des animés de la saison", description = "Obtenir la liste des animés par statut")
+    @Operation(
+            summary = "Obtenir la liste des animés de la saison",
+            description = "Obtenir la liste des animés par statut"
+    )
     @GetMapping("/animes/season")
     public List<AnimesByTypeDTO> getAnimesBySeason(@RequestParam("year") int year,
                                                    @RequestParam("season") Season season) {
-        Map<String, List<AnimeSeasonDTO>> animesBySeason = animeService.getAnimesBySeason(year, season);
-
-        List<AnimesByTypeDTO> animesByTypeDTOS = new ArrayList<>();
-
-        animesBySeason.forEach(
-                (key, value) -> {
-                    List<AnimeCardDTO> animeCardDTOS = value.stream()
-                            .map(AnimeMapper::toAnimeCardDTO)
+        return animeService.getAnimesBySeason(year, season).entrySet().stream()
+                .map((animesBySeason) -> {
+                    List<AnimeCardDTO> animeCardDTOS = animesBySeason.getValue().stream()
+                            .map(animeMapper::toAnimeCardDTO)
                             .toList();
-                    AnimesByTypeDTO animesByTypeDTO = new AnimesByTypeDTO(key, animeCardDTOS);
-                    animesByTypeDTOS.add(animesByTypeDTO);
-                }
-        );
-        return animesByTypeDTOS;
+                    return new AnimesByTypeDTO(animesBySeason.getKey(), animeCardDTOS);
+                })
+                .collect(Collectors.toList());
     }
-
-    @Operation(summary = "Save l'animé", description = "Obtenir la liste des animés par statut")
-    @PostMapping("/animes/saisons")
-    public List<List<AnimeCardDTO>> saveAnimesBySeason(@RequestParam("year") int year,
-                                                       @RequestParam("season") Season season) {
-        return null;
-    }
-
-
 }

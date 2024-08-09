@@ -2,13 +2,13 @@ package plopez.biblianime.anime.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.anime.entity.Anime;
-import plopez.biblianime.anime.entity.AnimeStatut;
-import plopez.biblianime.anime.entity.AnimeTitle;
+import plopez.biblianime.anime.entity.*;
 import plopez.biblianime.anime.repository.AnimeRepository;
+import plopez.biblianime.anime.repository.AnimeUserDataRepository;
 import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
 import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
 import plopez.biblianime.apiexterne.myanimelist.service.MyAnimeListAnimeService;
+import plopez.biblianime.apiexterne.myanimelistofficiel.service.MyAnimeListOfficielService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,10 +21,16 @@ public class AnimeServiceImpl implements AnimeService {
     private AnimeRepository animeRepository;
 
     @Autowired
+    private AnimeUserDataRepository animeUserDataRepository;
+
+    @Autowired
     private TitleAnimeService titleAnimeService;
 
     @Autowired
     private MyAnimeListAnimeService myAnimeListAnimeService;
+
+    @Autowired
+    private MyAnimeListOfficielService myAnimeListOfficielService;
 
     @Override
     public Anime create(Anime anime) {
@@ -39,8 +45,33 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public Anime save(Anime anime) {
+    public Anime add(Anime anime) {
         return animeRepository.save(anime);
+    }
+
+    @Override
+    public Anime2 add(Integer animeId) {
+
+        AnimeUserData animeUserData = new AnimeUserData();
+
+        animeUserDataRepository.save(animeUserData);
+
+
+        //AnimeDTO animeDetails = myAnimeListOfficielService.getAnimeDetails(animeId, null);
+
+        //Anime2 anime2 = new Anime2();
+
+        //anime2.setTitle(animeDetails.getTitle());
+        //anime2.setUrl(animeDetails.getMainPicture().getMedium());
+        //anime.setTotalEpisodes(animeDetails.get());
+        //anime2.setMyanimelistId(animeId);
+
+
+        //save anime-data
+        //save anime-user
+        //creer objet anime avec tous
+
+        return null;
     }
 
     @Override

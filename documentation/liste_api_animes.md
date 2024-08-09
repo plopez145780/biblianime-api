@@ -1,0 +1,6 @@
+- https://github.com/Nekos-API/Nekos-API
+- https://nekosapi.com/
+- https://myanimelist.net/clubs.php?cid=13727
+- https://www.animenewsnetwork.com/encyclopedia/api.php
+- https://github.com/AniList/ApiV2-GraphQL-Docs
+- https://publicapis.dev/category/anime

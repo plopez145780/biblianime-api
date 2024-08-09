@@ -9,12 +9,20 @@ import java.util.List;
 @AllArgsConstructor
 public class AnimeCardDTO {
 
-    String title;
-    String url;//pour ouvrir la page de myAnimeList pour le detail
-    List<String> genres;//pour le filtrage par genre dans le front
-    String description;//=synopsis
-    String imageUrl;
-    int totalEpisodes;
     int myanimelistId;//extraire de l'URL https://myanimelist.net/anime/55701/Kimetsu_no_Yaiba__Hashira_Geiko-hen
 
+    String title;
+
+    List<String> genres;//pour le filtrage par genre dans le front
+
+    @Deprecated
+    String description;//=synopsis
+
+    String sysnopsis;
+
+    String imageUrl;
+
+    int totalEpisodes;
+
+    String url; //pour ouvrir la page de myAnimeList pour le detail
 }
