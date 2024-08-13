@@ -1,7 +1,5 @@
 package plopez.biblianime.apiexterne.myanimelistofficiel.service;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.StreamReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -11,15 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import plopez.biblianime.apiexterne.myanimelistofficiel.dto.*;
+import plopez.biblianime.apiexterne.myanimelistofficiel.dto.AnimeDTO;
+import plopez.biblianime.apiexterne.myanimelistofficiel.dto.AnimePagingDTO;
+import plopez.biblianime.apiexterne.myanimelistofficiel.dto.NodeAnimeDTO;
 import plopez.biblianime.apiexterne.myanimelistofficiel.provider.MyAnimeListOfficielProvider;
 
 import java.net.http.HttpResponse;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class MyAnimeListOfficielServiceImpl implements MyAnimeListOfficielService {
@@ -42,7 +41,7 @@ public class MyAnimeListOfficielServiceImpl implements MyAnimeListOfficielServic
         objectMapper.configure(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION.mappedFeature(), true);
         try {
             AnimePagingDTO animePagingDTO = objectMapper.readValue(httpResponse.body(), new TypeReference<AnimePagingDTO>() {});
-            animesDTO = animePagingDTO.getData();
+            animesDTO = animePagingDTO.getData().stream().map(NodeAnimeDTO::getNode).collect(toList());
         } catch (JsonProcessingException e) {
             log.error("Deserialization error: {}", e.getMessage());
         }
@@ -86,7 +85,7 @@ public class MyAnimeListOfficielServiceImpl implements MyAnimeListOfficielServic
         objectMapper.configure(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION.mappedFeature(), true);
         try {
             AnimePagingDTO animePagingDTO = objectMapper.readValue(httpResponse.body(), new TypeReference<AnimePagingDTO>() {});
-            animesDTO = animePagingDTO.getData();
+            animesDTO = animePagingDTO.getData().stream().map(NodeAnimeDTO::getNode).collect(toList());
         } catch (JsonProcessingException e) {
             log.error("Deserialization error: {}", e.getMessage());
         }
@@ -107,7 +106,7 @@ public class MyAnimeListOfficielServiceImpl implements MyAnimeListOfficielServic
         objectMapper.configure(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION.mappedFeature(), true);
         try {
             AnimePagingDTO animePagingDTO = objectMapper.readValue(httpResponse.body(), new TypeReference<AnimePagingDTO>() {});
-            animesDTO = animePagingDTO.getData();
+            animesDTO = animePagingDTO.getData().stream().map(NodeAnimeDTO::getNode).collect(toList());
         } catch (JsonProcessingException e) {
             log.error("Deserialization error: {}", e.getMessage());
         }

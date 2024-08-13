@@ -61,7 +61,7 @@ public class MyAnimeListOfficielProviderImpl implements MyAnimeListOfficielProvi
     @Override
     public HttpResponse<String> getSeasonalAnime(Integer year, String season, String sort, Integer limit, Integer offset, String fields) {
         URI uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
-                .pathSegment("anime", year.toString(), season)
+                .pathSegment("anime", "season", year.toString(), season.toLowerCase())
                 .queryParamIfPresent("sort", Optional.ofNullable(sort))
                 .queryParamIfPresent("limit", Optional.ofNullable(limit))
                 .queryParamIfPresent("offset", Optional.ofNullable(offset))

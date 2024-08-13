@@ -1,5 +1,6 @@
 package plopez.biblianime.apiexterne.myanimelistofficiel.service;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import plopez.biblianime.apiexterne.myanimelistofficiel.dto.AnimeDTO;
 
@@ -13,6 +14,6 @@ public interface MyAnimeListOfficielService {
 
     List<AnimeDTO> getAnimeRanking(@NotNull String rankingType, Integer limit, Integer offset, String fields);
 
-    List<AnimeDTO> getSeasonalAnime(@NotNull Integer year, @NotNull String season, String sort, Integer limit, Integer offset, String fields);
+    List<AnimeDTO> getSeasonalAnime(@NotNull Integer year, @NotNull @NotEmpty String season, String sort, Integer limit, Integer offset, String fields);
 
 }
