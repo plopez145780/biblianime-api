@@ -11,6 +11,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@Deprecated
 @Service
 abstract class MyAnimeListProviderImpl implements MyAnimeListProvider {
 

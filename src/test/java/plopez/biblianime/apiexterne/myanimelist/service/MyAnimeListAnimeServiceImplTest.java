@@ -16,6 +16,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 @ExtendWith(MockitoExtension.class)
 class MyAnimeListAnimeServiceImplTest {
 

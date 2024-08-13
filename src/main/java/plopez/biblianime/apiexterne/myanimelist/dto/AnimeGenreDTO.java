@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+@Deprecated
 @Getter
 @Setter
 @RequiredArgsConstructor
