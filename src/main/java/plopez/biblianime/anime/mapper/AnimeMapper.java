@@ -1,30 +1,42 @@
 package plopez.biblianime.anime.mapper;
 
+import jakarta.validation.constraints.NotNull;
+import org.springframework.stereotype.Component;
 import plopez.biblianime.anime.dto.AnimeCardDTO;
-import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
-import plopez.biblianime.apiexterne.myanimelist.dto.GenreDTO;
+import plopez.biblianime.anime.dto.AnimeDetailDTO;
+import plopez.biblianime.anime.entity.Anime2;
+import plopez.biblianime.apiexterne.myanimelistofficiel.dto.AnimeDTO;
+import plopez.biblianime.apiexterne.myanimelistofficiel.dto.GenreDTO;
 
 import java.util.List;
+import java.util.Optional;
 
+import static java.util.stream.Collectors.toList;
+
+@Component
 public class AnimeMapper {
 
-    public static AnimeCardDTO toAnimeCardDTO(AnimeSeasonDTO animeSeasonDTO) {
+    public AnimeCardDTO toAnimeCardDTO(@NotNull AnimeDTO animeDTO) {
 
-        List<String> genres = animeSeasonDTO.getGenres().stream()
+        List<String> genres = Optional.ofNullable(animeDTO.getGenres()).orElse(List.of()).stream()
                 .map(GenreDTO::getName)
-                .toList();
+                .collect(toList());
 
-
-        int id = Integer.parseInt(animeSeasonDTO.getUrl().split("/")[4]);
+        String url = "https://www.myanimelist.net/anime/" + animeDTO.getId();
 
         return new AnimeCardDTO(
-                animeSeasonDTO.getTitle(),
-                animeSeasonDTO.getUrl(),
+                animeDTO.getId(),
+                animeDTO.getTitle(),
                 genres,
-                animeSeasonDTO.getSynopsis(),
-                animeSeasonDTO.getImageUrl(),
-                animeSeasonDTO.getEpisodes(),
-                id
+                animeDTO.getSynopsis(),
+                animeDTO.getSynopsis(),
+                animeDTO.getMainPicture().getMedium(),
+                animeDTO.getNumEpisodes(),
+                url
         );
+    }
+
+    public AnimeDetailDTO toAnimeDetailDTO(Anime2 anime2) {
+        return null;
     }
 }

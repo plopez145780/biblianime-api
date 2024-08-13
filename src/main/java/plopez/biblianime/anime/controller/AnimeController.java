@@ -13,17 +13,14 @@ import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.AnimeStatut;
 import plopez.biblianime.anime.mapper.AnimeMapper;
 import plopez.biblianime.anime.service.AnimeService;
-import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
 import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
 import plopez.biblianime.apiexterne.myanimelistofficiel.dto.AnimeDTO;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-/**
- * Controller pour les animés
- */
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
+
 @Tag(name = "animé", description = "API des animés")
 @Validated
 @RestController
@@ -31,6 +28,9 @@ public class AnimeController {
 
     @Autowired
     private AnimeService animeService;
+
+    @Autowired
+    private AnimeMapper animeMapper;
 
     // CREATE
 
@@ -41,7 +41,16 @@ public class AnimeController {
     )
     @PostMapping("/animes")
     public Anime add(@Valid @RequestBody Anime anime) {
-        return animeService.save(anime);
+        return animeService.add(anime);
+    }
+
+    @Operation(
+            summary = "Ajouter un nouvel animé à partir de l'id de myAnimeList",
+            description = "Ajouter un nouvel animé à partir de l'id de myAnimeList"
+    )
+    @PostMapping("/animes/{animeId}")
+    public Boolean add(@Valid @NotNull @PathVariable("animeId") Integer animeId) {
+        return animeService.add(animeId);
     }
 
     // READ
@@ -119,19 +128,15 @@ public class AnimeController {
     @GetMapping("/animes/season")
     public List<AnimesByTypeDTO> getAnimesBySeason(@RequestParam("year") int year,
                                                    @RequestParam("season") Season season) {
-        Map<String, List<AnimeSeasonDTO>> animesBySeason = animeService.getAnimesBySeason(year, season);
-
-        List<AnimesByTypeDTO> animesByTypeDTOS = new ArrayList<>();
-
-        animesBySeason.forEach(
-                (key, value) -> {
-                    List<AnimeCardDTO> animeCardDTOS = value.stream()
-                            .map(AnimeMapper::toAnimeCardDTO)
+        return animeService.getAnimesBySeason(year, season).stream()
+                .collect(groupingBy(AnimeDTO::getMediaType))
+                .entrySet().stream()
+                .map((animesBySeason) -> {
+                    List<AnimeCardDTO> animeCardDTOS = animesBySeason.getValue().stream()
+                            .map(animeMapper::toAnimeCardDTO)
                             .toList();
-                    AnimesByTypeDTO animesByTypeDTO = new AnimesByTypeDTO(key, animeCardDTOS);
-                    animesByTypeDTOS.add(animesByTypeDTO);
-                }
-        );
-        return animesByTypeDTOS;
+                    return new AnimesByTypeDTO(animesBySeason.getKey(), animeCardDTOS);
+                })
+                .collect(toList());
     }
 }

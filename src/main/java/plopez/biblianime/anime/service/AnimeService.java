@@ -2,17 +2,18 @@ package plopez.biblianime.anime.service;
 
 import plopez.biblianime.anime.entity.Anime;
 import plopez.biblianime.anime.entity.AnimeStatut;
-import plopez.biblianime.apiexterne.myanimelist.dto.AnimeSeasonDTO;
 import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
+import plopez.biblianime.apiexterne.myanimelistofficiel.dto.AnimeDTO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface AnimeService {
 
     Anime create(Anime anime);
 
-    Anime save(Anime anime);
+    Anime add(Anime anime);
+
+    Boolean add(Integer animeId);
 
     List<Anime> findAll();
 
@@ -26,5 +27,5 @@ public interface AnimeService {
 
     Anime find(Long animeId);
 
-    Map<String, List<AnimeSeasonDTO>> getAnimesBySeason(int year, Season season);
+    List<AnimeDTO> getAnimesBySeason(Integer year, Season season);
 }

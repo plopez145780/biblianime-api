@@ -54,7 +54,7 @@ public class ImportCsvServiceImpl implements ImportCsvService {
 
                     // Crée et sauvegarde l'animé
                     Anime anime = AnimeConverter.convert(data, animeTitles);
-                    animeService.save(anime);
+                    animeService.add(anime);
                 });
     }
 }
