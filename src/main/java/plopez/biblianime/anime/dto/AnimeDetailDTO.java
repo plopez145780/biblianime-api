@@ -1,6 +1,6 @@
 package plopez.biblianime.anime.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -12,7 +12,7 @@ public class AnimeDetailDTO {
     private Integer myanimelistId;
 
     @NotNull
-    @NotEmpty
+    @NotBlank
     private String title;
 
     private List<String> genres;
@@ -24,6 +24,6 @@ public class AnimeDetailDTO {
     private Integer totalEpisodes;
 
     @NotNull
-    @NotEmpty
+    @NotBlank
     private String url;
 }

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 import plopez.biblianime.anime.dto.AnimeCardDTO;
 import plopez.biblianime.anime.dto.AnimeDetailDTO;
-import plopez.biblianime.anime.entity.Anime2;
+import plopez.biblianime.anime.entity.AnimeUserData;
 import plopez.biblianime.apiexterne.myanimelistofficiel.dto.AnimeDTO;
 import plopez.biblianime.apiexterne.myanimelistofficiel.dto.GenreDTO;
 
@@ -36,7 +36,12 @@ public class AnimeMapper {
         );
     }
 
-    public AnimeDetailDTO toAnimeDetailDTO(Anime2 anime2) {
+    public AnimeCardDTO toAnimeCardDTO(AnimeUserData animeUserData) {
         return null;
     }
+
+    public AnimeDetailDTO toAnimeDetailDTO(AnimeUserData animeUserData) {
+        return null;
+    }
+
 }

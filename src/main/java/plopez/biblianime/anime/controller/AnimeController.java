@@ -3,14 +3,16 @@ package plopez.biblianime.anime.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import plopez.biblianime.anime.dto.AnimeCardDTO;
+import plopez.biblianime.anime.dto.AnimeDetailDTO;
 import plopez.biblianime.anime.dto.AnimesByTypeDTO;
-import plopez.biblianime.anime.entity.Anime;
-import plopez.biblianime.anime.entity.AnimeStatut;
+import plopez.biblianime.anime.entity.AnimeUserData;
 import plopez.biblianime.anime.mapper.AnimeMapper;
 import plopez.biblianime.anime.service.AnimeService;
 import plopez.biblianime.apiexterne.myanimelist.enumeration.Season;
@@ -34,57 +36,48 @@ public class AnimeController {
 
     // CREATE
 
-    @Deprecated
     @Operation(
             summary = "Ajouter un nouvel animé",
             description = "Ajouter un nouvel animé"
     )
     @PostMapping("/animes")
-    public Anime add(@Valid @RequestBody Anime anime) {
-        return animeService.add(anime);
-    }
-
-    @Operation(
-            summary = "Ajouter un nouvel animé à partir de l'id de myAnimeList",
-            description = "Ajouter un nouvel animé à partir de l'id de myAnimeList"
-    )
-    @PostMapping("/animes/{animeId}")
-    public Boolean add(@Valid @NotNull @PathVariable("animeId") Integer animeId) {
-        return animeService.add(animeId);
+    public Boolean add(@Valid @NotNull @RequestBody AnimeCardDTO animeCardDTO) {
+        return animeService.add(animeCardDTO.getMyanimelistId());
     }
 
     // READ
 
-    @Deprecated
     @Operation(
             summary = "Obtenir la liste des animés",
             description = "Obtenir la liste des animés"
     )
     @GetMapping("/animes")
-    public List<Anime> findAll() {
-        return animeService.findAll();
+    public List<AnimeCardDTO> findAll() {
+        List<AnimeUserData> animesUserData = animeService.findAll();
+        return animesUserData.stream().map(animeMapper::toAnimeCardDTO).collect(toList());
     }
 
-    @Deprecated
     @Operation(
             summary = "Obtenir un animé",
             description = "Obtenir un animé"
     )
     @GetMapping("/animes/{id}")
-    public Anime find(@PathVariable("id") Long animeId) {
-        return animeService.find(animeId);
+    public AnimeDetailDTO find(@Valid @NotNull @PathVariable("id") Long animeId) {
+        AnimeUserData animeUserData = animeService.find(animeId);
+        return animeMapper.toAnimeDetailDTO(animeUserData);
     }
 
     // UPDATE
 
-    @Deprecated
     @Operation(
             summary = "Mettre à jour un animé",
             description = "Mettre à jour un animé"
     )
     @PutMapping("/animes/{id}")
-    public Anime update(@RequestBody Anime anime, @PathVariable("id") Long animeId) {
-        return animeService.update(anime, animeId);
+    public AnimeDetailDTO update(
+            @Valid @NotNull @RequestBody AnimeDetailDTO animeDetailDTO,
+            @Valid @NotNull @PathVariable("id") Long animeId) {
+        return animeService.update(animeDetailDTO, animeId);
     }
 
     // DELETE
@@ -94,40 +87,26 @@ public class AnimeController {
             description = "Supprimer un animé"
     )
     @DeleteMapping("/animes/{id}")
-    public String delete(@PathVariable("id") Long animeId) {
-        animeService.delete(animeId);
-        return "Deleted Successfully";
+    public Boolean delete(@Valid @NotNull @PathVariable("id") Long animeId) {
+        return animeService.delete(animeId);
     }
 
     // AUTRES ACTIONS
 
-    @Deprecated
-    @Operation(
-            summary = "Obtenir la liste des animés par titre",
-            description = "Obtenir la liste des animés par titre"
-    )
-    @GetMapping("/animes/findByTitle")
-    public List<Anime> findByTitle(@RequestParam("titre") String titleName) {
-        return animeService.findByTitle(titleName);
-    }
-
-    @Deprecated
-    @Operation(
-            summary = "Obtenir la liste des animés par statut",
-            description = "Obtenir la liste des animés par statut"
-    )
-    @GetMapping("/animes/findByStatut")
-    public List<Anime> findByStatut(@RequestParam("statut") AnimeStatut statut) {
-        return animeService.findByStatut(statut);
-    }
-
     @Operation(
             summary = "Obtenir la liste des animés de la saison",
-            description = "Obtenir la liste des animés par statut"
+            description = "Obtenir la liste des animés de la saison"
     )
     @GetMapping("/animes/season")
-    public List<AnimesByTypeDTO> getAnimesBySeason(@RequestParam("year") int year,
-                                                   @RequestParam("season") Season season) {
+    public List<AnimesByTypeDTO> getAnimesBySeason(
+            @Valid @NotNull
+            @Min(value = 1900, message = "Sérieusement ?! Avant 1900 !!!")
+            @Max(value = 2100, message = "Sérieusement ?! Après 2100 !!!")
+            @RequestParam("year") Integer year,
+
+            @Valid @NotNull @RequestParam("season") Season season
+    ) {
+        // TODO a refacto, trop complexe
         return animeService.getAnimesBySeason(year, season).stream()
                 .collect(groupingBy(AnimeDTO::getMediaType))
                 .entrySet().stream()

@@ -3,6 +3,7 @@ package plopez.biblianime.anime.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plopez.biblianime.anime.dto.AnimeCardDTO;
+import plopez.biblianime.anime.dto.AnimeDetailDTO;
 import plopez.biblianime.anime.entity.*;
 import plopez.biblianime.anime.mapper.AnimeDataMapper;
 import plopez.biblianime.anime.repository.AnimeRepository;
@@ -12,7 +13,6 @@ import plopez.biblianime.apiexterne.myanimelist.service.MyAnimeListAnimeService;
 import plopez.biblianime.apiexterne.myanimelistofficiel.dto.AnimeDTO;
 import plopez.biblianime.apiexterne.myanimelistofficiel.service.MyAnimeListOfficielService;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,19 +86,19 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public List<Anime> findAll() {
-        return (List<Anime>) animeRepository.findAll();
+    public List<AnimeUserData> findAll() {
+        return (List<AnimeUserData>) animeUserDataRepository.findAll();
     }
 
     @Override
-    public Anime find(Long animeId) {
-        return animeRepository.findById(animeId).orElse(null);
+    public AnimeUserData find(Long animeId) {
+        return animeUserDataRepository.findById(animeId).orElse(null);
     }
 
     @Override
-    public Anime update(Anime anime, Long animeId) {
-
-        Anime animeEntity = animeRepository.findById(animeId).orElse(new Anime());
+    public AnimeDetailDTO update(AnimeDetailDTO animeDetailDTO, Long animeId) {
+        //TODO update la BDD avec les info de animeDetailDTO
+        /*Anime animeEntity = animeRepository.findById(animeId).orElse(new Anime());
 
         if (animeEntity.getStatut() != AnimeStatut.EN_COUR && anime.getStatut() == AnimeStatut.EN_COUR) {
             animeEntity.setDateDebut(LocalDate.now());
@@ -117,12 +117,19 @@ public class AnimeServiceImpl implements AnimeService {
         animeEntity.setWikipedia(anime.getWikipedia());
         animeEntity.setCommentaire(anime.getCommentaire());
 
-        return animeRepository.save(animeEntity);
+        return animeRepository.save(animeEntity);*/
+        return null;
     }
 
     @Override
-    public void delete(Long animeId) {
-        animeRepository.deleteById(animeId);
+    public Boolean delete(Long animeId) {
+        Boolean success = Boolean.TRUE;
+        try {
+            animeUserDataRepository.deleteById(animeId);
+        } catch (Exception e) {
+            success = Boolean.FALSE;
+        }
+        return success;
     }
 
     @Override
