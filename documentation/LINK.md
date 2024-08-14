@@ -49,11 +49,16 @@ The following guides illustrate how to use some features concretely:
 - https://www.baeldung.com/spring-rest-openapi-documentation
 - https://springdoc.org/
 - https://github.com/swagger-api/swagger-ui
+- https://www.baeldung.com/swagger-set-example-description
 
 # Spring
 
 - https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 - https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html
+
+## Validator
+
+- https://www.baeldung.com/spring-valid-vs-validated
 
 ## Ehcache
 
