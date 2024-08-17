@@ -8,9 +8,6 @@ spring:
     hibernate:
       ddl-auto: create  # create, create-drop, validate, update
       show-sql: true
-  cache:
-    jcache:
-      config: classpath:ehcache.xml
 app:
   importcsv:
     source: #Chemin du fichier csv a importer

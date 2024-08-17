@@ -1,6 +1,7 @@
 package plopez.biblianime.anime.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import plopez.biblianime.anime.dto.AnimeCardDTO;
 import plopez.biblianime.anime.dto.AnimeDetailDTO;
@@ -143,6 +144,7 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
 
+    @Cacheable("animesBySeasonCache")
     @Override
     public List<AnimeDTO> getAnimesBySeason(Integer year, Season season) {
         return myAnimeListOfficielService.getSeasonalAnime(year, season.toString(), null, null, null, null);
