@@ -4,6 +4,7 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
   jpa:
+    open-in-view: false
     generate-ddl: true
     hibernate:
       ddl-auto: create  # create, create-drop, validate, update
